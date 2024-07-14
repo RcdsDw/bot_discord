@@ -1,16 +1,26 @@
 require('dotenv').config();
 
-const { Client, GatewayIntentBits, GuildMember } = require('discord.js');
+const { Client, GatewayIntentBits } = require('discord.js');
 
 const bot = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildPresences
   ]
 });
 
 bot.login(process.env.TOKEN_BOT);
+
+function checkPresence(userId, guild) {
+  const member = guild.members.cache.get(userId);
+  if (member) {
+    const presenceStatus = member.presence?.status;
+    return presenceStatus === 'online';
+  }
+  return false;
+}
 
 bot.on('messageCreate', async function(msg) {
     if (msg.author.bot || msg.author.username === "judgeobito") return;
@@ -18,16 +28,16 @@ bot.on('messageCreate', async function(msg) {
     if (msg.content.includes("coubeh") || msg.content.includes("kette") || msg.content.includes("quette") || msg.content.includes("feur") || msg.content.includes("quete")) {
         if (msg.reference) {
             const referencedMessage = await msg.channel.messages.fetch(msg.reference.messageId);
-            if (referencedMessage.author.username === "judgeobito") {
+            if (referencedMessage.author.username === "judgeobito" || referencedMessage.author.username === "cocacolack") {
                 msg.reply("A ton grand âge, tu fais encore ça ? Ressaisis-toi !");
                 return;
             }
         }
-        if (msg.mentions.users.some(user => user.username === "judgeobito")) {
+        if (msg.mentions.users.some(user => user.username === "judgeobito") && msg.mentions.users.some(user => user.username === "cocacolack")) {
             msg.reply("A ton grand âge, tu fais encore ça ? Ressaisis-toi !");
             return;
         }
-    } else if (msg.mentions.users.some(user => user.username === "judgeobito")) {
+    } else if (msg.mentions.users.some(user => user.username === "judgeobito") && checkPresence(msg.mentions.users.find(user => user.username === "judgeobito").id, msg.guild)) {
         msg.reply("Bonjour,\n\n" +
         "Merci pour votre message. Le St Gouverneur n'est pas disponible actuellement. " +
         "Il est sur l'île d'Apagnan mais il sera bientôt de retour pour coubeh un max avec le VC.\n\n" +
@@ -48,20 +58,7 @@ bot.on('messageCreate', async function(msg) {
     }
 });
   
-// bot.once('ready', async() => {
-//   const messages = [];
-//   const fetchedMessages = await ctx.channel.messages.fetch({ limit: null });
-
-//   fetchedMessages.forEach(message => {
-//       if (message.author.id === memberID) {
-//           messages.push(message);
-//       }
-//   });
-
-//   messages.forEach(message => {
-//       msg.channel.send(message.content);
-//   });
-
-//     console.log('Bot is ready!');
-// });
+bot.once('ready', () => {
+  console.log('Bot is ready!');
+});
 
