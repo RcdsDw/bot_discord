@@ -23,7 +23,7 @@ function checkPresence(userId, guild) {
 }
 
 bot.on('messageCreate', async function(msg) {
-    if (msg.author.bot || msg.author.username === "judgeobito") return;
+    if (msg.author.bot || msg.author.username === "judgeobito" || msg.author.username === "cocacolack") return;
 
     if (msg.content.includes("coubeh") || msg.content.includes("kette") || msg.content.includes("quette") || msg.content.includes("feur") || msg.content.includes("quete")) {
         if (msg.reference) {
