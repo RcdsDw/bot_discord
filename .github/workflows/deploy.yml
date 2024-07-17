@@ -32,14 +32,15 @@ jobs:
 
     - name: Deploy to VPS
       run: |
-        ssh -tt ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
+        ssh -o StrictHostKeyChecking=no -T ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
+          set -x  # Activate debugging mode to see each command
           echo "Connected to VPS"
           cd dev/bot_discord
-          echo "I'm in the directory"
+          echo "Changed directory to dev/bot_discord"
           git pull
-          echo "Pulled!"
+          echo "Git pull completed"
           npm install
-          echo "Dependencies installed"
+          echo "npm install completed"
         EOF
 
     - name: Mark deployment as successful
