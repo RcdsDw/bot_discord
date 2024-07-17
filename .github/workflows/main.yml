@@ -27,7 +27,8 @@ jobs:
     - name: Deploy to VPS
       run: |
         ssh -tt ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
-          cd dev/bot_discord
-          git pull origin main
-          npm install
+          echo "Connected to VPS"
+          ls -la /dev/bot-discord
+          echo "Listing complete"
         EOF
+      timeout-minutes: 5
