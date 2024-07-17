@@ -30,6 +30,10 @@ bot.on('messageCreate', async function (msg) {
   )
     return;
 
+  if (msg.content === "!racist") {
+    msg.reply('Oui, je suis raciste !')
+  }
+
   if (
     msg.content.includes('coubeh') ||
     msg.content.includes('kette') ||
