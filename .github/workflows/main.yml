@@ -28,7 +28,11 @@ jobs:
       run: |
         ssh -tt ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
           echo "Connected to VPS"
-          ls -la /dev/bot_discord
-          echo "Listing complete"
+          cd dev/bot_discord
+          echo "I'm in the directory"
+          git pull
+          echo "Pulled !"
+          npm install
+          echo "Dependencies installed"
         EOF
       timeout-minutes: 5
