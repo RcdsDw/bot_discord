@@ -3,7 +3,7 @@ name: Deploy to VPS
 on:
   push:
     branches:
-      - main 
+      - main  
 
 jobs:
   deploy:
@@ -24,37 +24,14 @@ jobs:
         ssh-keyscan ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
         cat ~/.ssh/known_hosts
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'  # Vous pouvez spécifier la version de Node.js appropriée
-
     - name: Install dependencies
       run: npm install
 
     - name: Run Prettier
-      run: |
-        prettier --check .
-      continue-on-error: true  # Continue même si des erreurs sont trouvées
-      env:
-        CI: true  # Définit CI=true pour Prettier
-
-    - name: Display Prettier errors
-      if: ${{ failure() }}
-      run: |
-        echo "Prettier errors:"
-        prettier --check . --list-different
+      run: npm run prettier --if-present -- --check .
 
     - name: Run ESLint
-      run: |
-        eslint .
-      continue-on-error: true 
-
-    - name: Display ESLint errors
-      if: ${{ failure() }}
-      run: |
-        echo "ESLint errors:"
-        eslint --format=stylish .
+      run: npm run lint
 
     - name: Deploy to VPS
       run: |
