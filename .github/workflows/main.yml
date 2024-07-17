@@ -28,7 +28,7 @@ jobs:
       run: |
         ssh -tt ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
           echo "Connected to VPS"
-          ls -la /dev/bot-discord
+          ls -la /dev/bot_discord
           echo "Listing complete"
         EOF
       timeout-minutes: 5
