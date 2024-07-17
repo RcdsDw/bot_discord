@@ -27,7 +27,7 @@ jobs:
     - name: Deploy to VPS
       run: |
         ssh -tt ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
-          cd /dev/bot-discord
+          cd dev/bot-discord
           git pull origin main
           npm install
         EOF
