@@ -41,7 +41,6 @@ jobs:
           npm install
           echo "Dependencies installed"
         EOF
-      timeout-minutes: 5
 
     - name: Mark deployment as successful
       if: success()
