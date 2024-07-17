@@ -45,10 +45,9 @@ jobs:
 
       - name: Start Discord bot with PM2
         run: |
-          ssh -tt ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOSSH'
+          ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOSSH'
             cd dev/bot_discord
 
-            # Vérifier si l'application PM2 existe déjà
             if pm2 show discord-bot >/dev/null 2>&1; then
               echo "Restarting existing PM2 process..."
               pm2 restart discord-bot
@@ -56,5 +55,4 @@ jobs:
               echo "Starting new PM2 process..."
               pm2 start index.js --name "discord-bot"
             fi
-            
           EOSSH
