@@ -46,7 +46,7 @@ jobs:
       - name: Start Discord bot with PM2
         run: |
           ssh -tt ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOSSH'
-            pm2 start /path/to/your/index.js --name "discord-bot"
+            pm2 start index.js --name "discord-bot"
             pm2 save
             pm2 startup
           EOSSH
