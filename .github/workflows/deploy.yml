@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main  
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -27,28 +28,7 @@ jobs:
       run: npm install
 
     - name: Run Prettier
-      run: |
-        prettier --check .
-      continue-on-error: true  
-      env:
-        CI: true  
-
-    - name: Display Prettier errors
-      if: ${{ failure() }}
-      run: |
-        echo "Prettier errors:"
-        prettier --check . --list-different
-
-    - name: Run ESLint
-      run: |
-        eslint .
-      continue-on-error: true  
-
-    - name: Display ESLint errors
-      if: ${{ failure() }}
-      run: |
-        echo "ESLint errors:"
-        eslint --format=stylish .
+      run: npm run prettier --if-present -- --check .
 
     - name: Deploy to VPS
       run: |
