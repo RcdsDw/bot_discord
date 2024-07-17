@@ -49,11 +49,3 @@ jobs:
             cd dev/bot_discord
             pm2 start index.js
           EOSSH
-
-      - name: Mark deployment as successful
-        if: success()
-        run: echo "Deployment successful!"
-
-      - name: Print debug info after deployment
-        run: |
-          echo "Debug: Deployment step finished"
