@@ -3,50 +3,58 @@ name: Deploy to VPS
 on:
   push:
     branches:
-      - main  
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
 
-    - name: Add VPS to known_hosts
-      run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-        cat ~/.ssh/known_hosts
+      - name: Add VPS to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          cat ~/.ssh/known_hosts
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run Prettier
-      run: npm run prettier --if-present -- --write .
+      - name: Run Prettier
+        run: npm run prettier --if-present -- --write .
 
-    - name: Deploy to VPS
-      run: |
-        ssh -o StrictHostKeyChecking=no -T ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
-          set -x  # Activate debugging mode to see each command
-          echo "Connected to VPS"
-          cd dev/bot_discord
-          echo "Changed directory to dev/bot_discord"
-          git pull
-          echo "Git pull completed"
-          npm install
-          echo "npm install completed"
-        EOF
+      - name: Deploy to VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no -T ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
+            set -x  
+            echo "Connected to VPS"
+            cd dev/bot_discord
+            echo "Changed directory to dev/bot_discord"
+            git pull
+            echo "Git pull completed"
+            npm install
+            echo "npm install completed"
+          EOF
 
-    - name: Mark deployment as successful
-      if: success()
-      run: echo "Deployment successful!"
-      
-    - name: Print debug info after deployment
-      run: |
-        echo "Debug: Deployment step finished"
+      - name: Start Discord bot with PM2
+        run: |
+          ssh -tt ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOSSH'
+            pm2 start /path/to/your/index.js --name "discord-bot"
+            pm2 save
+            pm2 startup
+          EOSSH
+
+      - name: Mark deployment as successful
+        if: success()
+        run: echo "Deployment successful!"
+
+      - name: Print debug info after deployment
+        run: |
+          echo "Debug: Deployment step finished"
