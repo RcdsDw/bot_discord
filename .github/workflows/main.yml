@@ -24,6 +24,15 @@ jobs:
         ssh-keyscan ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
         cat ~/.ssh/known_hosts
 
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Prettier
+      run: npm run prettier -- --check .
+
+    - name: Run ESLint
+      run: npm run lint
+
     - name: Deploy to VPS
       run: |
         ssh -tt ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
@@ -31,8 +40,12 @@ jobs:
           cd dev/bot_discord
           echo "I'm in the directory"
           git pull
-          echo "Pulled !"
+          echo "Pulled!"
           npm install
           echo "Dependencies installed"
         EOF
       timeout-minutes: 5
+
+    - name: Print debug info after deployment
+      run: |
+        echo "Debug: Deployment step finished"
