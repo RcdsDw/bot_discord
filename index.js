@@ -27,12 +27,7 @@ bot.on('messageCreate', async function (msg) {
     msg.author.bot ||
     msg.author.username === 'judgeobito' ||
     msg.author.username === 'cocacolack'
-  )
-    return;
-
-  if (msg.content === "!racist") {
-    msg.reply('Oui, je suis raciste !')
-  }
+  ) { return; }
 
   if (
     msg.content.includes('coubeh') ||
