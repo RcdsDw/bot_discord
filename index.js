@@ -30,7 +30,11 @@ bot.on('messageCreate', async (msg) => {
     return;
 
   const coubehRes = await Coubeh(msg.content);
+  const twitterRes = await Twitter(msg.content);
+
   if (coubehRes) {
     msg.channel.send(coubehRes);
+  } else if (twitterRes) {
+    msg.channel.send(twitterRes);
   }
 });
