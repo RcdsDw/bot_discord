@@ -23,10 +23,13 @@ bot.once('ready', () => {
 });
 
 bot.on('messageCreate', async (msg) => {
+
   const twitterRes = await Twitter(msg.content);
 
-  if (twitterRes) {
-    msg.channel.send(twitterRes);
+  if (twitterRes && !msg.author.bot) {
+    msg.delete().then(() => {
+      msg.channel.send(twitterRes);
+    });
   }
 
   if (
