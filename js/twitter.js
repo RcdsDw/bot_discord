@@ -1,11 +1,11 @@
 function Twitter(msg) {
-    const twitterReg = /^https:\/\/x\.com/;
-    if (msg.test(twitterReg)) {
-        const newMsg = msg.replace(twitterReg, 'https://fxtwitter.com');
-        return newMsg;
-    }
+  const twitterReg = /^https:\/\/x\.com/;
+  if (msg.match(twitterReg)) {
+    const newMsg = msg.replace(twitterReg, 'https://fxtwitter.com');
+    return newMsg;
+  }
 }
 
-module.exports = { 
-    Twitter 
+module.exports = {
+  Twitter,
 };

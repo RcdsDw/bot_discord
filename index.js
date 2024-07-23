@@ -1,4 +1,5 @@
 const { Coubeh } = require('./js/coubeh.js');
+const { Twitter } = require('./js/twitter.js');
 const { config } = require('dotenv');
 const { Client, GatewayIntentBits } = require('discord.js');
 
@@ -22,19 +23,22 @@ bot.once('ready', () => {
 });
 
 bot.on('messageCreate', async (msg) => {
+  const twitterRes = await Twitter(msg.content);
+
+  if (twitterRes) {
+    msg.channel.send(twitterRes);
+  }
+
   if (
     msg.author.bot ||
-    // msg.author.username === 'judgeobito' ||
+    msg.author.username === 'judgeobito' ||
     msg.author.username === 'cocacolack'
   )
     return;
 
   const coubehRes = await Coubeh(msg.content);
-  const twitterRes = await Twitter(msg.content);
 
   if (coubehRes) {
     msg.channel.send(coubehRes);
-  } else if (twitterRes) {
-    msg.channel.send(twitterRes);
   }
 });
