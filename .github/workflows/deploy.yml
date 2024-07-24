@@ -44,6 +44,8 @@ jobs:
             echo "Git pull completed"
             npm install
             echo "npm install completed"
+            nvm install 18
+            echo "nvm install 18 completed"
           EOF
 
       - name: Start Discord bot with PM2
