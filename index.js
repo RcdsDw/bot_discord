@@ -23,7 +23,6 @@ bot.once('ready', () => {
 });
 
 bot.on('messageCreate', async (msg) => {
-
   const twitterRes = await Twitter(msg.content);
 
   if (twitterRes && !msg.author.bot) {

@@ -30,6 +30,9 @@ jobs:
       - name: Run Prettier
         run: npm run prettier --if-present -- --write .
 
+      - name: Run ESLint
+        run: npm run lint --if-present -- --fix .
+
       - name: Deploy to VPS
         run: |
           ssh -o StrictHostKeyChecking=no -T ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'

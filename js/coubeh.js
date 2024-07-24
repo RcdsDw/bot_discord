@@ -7,7 +7,7 @@ function Coubeh(msg) {
   if (msg.match(pourQuoiReg)) {
     return 'Pour coubeh je pense mon reuf !';
   } else if (msg.match(pourQuiReg)) {
-    return "Pour kette j'crois bien !";
+    return 'Pour kette j&#39;ai mon gars !';
   } else if (msg.match(quoiReg)) {
     return 'Coubeh mon gars tu connais !';
   } else if (msg.match(quiReg)) {
