@@ -50,6 +50,5 @@ jobs:
         run: |
           ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOSSH'
             cd dev/bot_discord
-
-            docker-compose up -d --build
+            sudo docker compose up -d --build
           EOSSH
