@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   db:
     image: postgres:latest
@@ -8,7 +9,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: bot_database
     ports:
-      - '5555:5555'
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -19,7 +20,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://user:password@db:5555/bot_database
+      DATABASE_URL: postgres://user:password@db:5432/bot_database
     ports:
       - '3333:3333'
     volumes:
