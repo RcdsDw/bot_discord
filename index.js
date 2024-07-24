@@ -39,7 +39,7 @@ bot.on('messageCreate', async (msg) => {
   // Check author
   if (
     msg.author.bot ||
-    // msg.author.username === 'judgeobito' ||
+    msg.author.username === 'judgeobito' ||
     msg.author.username === 'cocacolack'
   )
     return;
