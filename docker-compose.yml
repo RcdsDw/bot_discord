@@ -19,7 +19,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://user:password@db:5432/bot_database
+      DATABASE_URL: postgres://user:password@db:5555/bot_database
     ports:
       - '3333:3333'
     volumes:
