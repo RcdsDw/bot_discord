@@ -10,9 +10,6 @@ COPY package*.json ./
 # Installer les dépendances
 RUN npm install
 
-# Installer nodemon globalement
-RUN npm install -g nodemon
-
 # Copier le reste des fichiers du projet dans le conteneur
 COPY . .
 
@@ -20,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Commande à exécuter au démarrage du conteneur
-CMD ["nodemon", "index.js"]
+CMD ["node", "index.js"]
