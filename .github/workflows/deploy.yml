@@ -48,16 +48,10 @@ jobs:
             echo "nvm install 18 completed"
           EOF
 
-      - name: Start Discord bot with PM2
+      - name: Start bot_discord container and bot_database_postgres container
         run: |
           ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOSSH'
             cd dev/bot_discord
 
-            if pm2 show discord-bot >/dev/null 2>&1; then
-              echo "Restarting existing PM2 process..."
-              pm2 restart discord-bot
-            else
-              echo "Starting new PM2 process..."
-              pm2 start index.js --name "discord-bot"
-            fi
+            docker-compose up -d
           EOSSH

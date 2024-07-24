@@ -1,0 +1,29 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    container_name: bot_database_postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bot_database
+    ports:
+      - '5555:5555'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  bot:
+    build:
+      context: .
+    container_name: bot_discord
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://user:password@db:5432/bot_database
+    ports:
+      - '3333:3333'
+    volumes:
+      - .:/usr/src/app
+
+volumes:
+  postgres_data:

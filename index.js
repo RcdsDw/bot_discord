@@ -6,6 +6,9 @@ const { CheckPresence } = require('./js/checkPresence.js');
 const { config } = require('dotenv');
 const { Client, GatewayIntentBits } = require('discord.js');
 
+const db = require('./lib/db.js');
+const { createTableIfNotExists } = require('./lib/tables/users.js');
+
 config();
 
 const bot = new Client({
@@ -34,6 +37,36 @@ bot.on('messageCreate', async (msg) => {
       msg.channel.send(twitterRes);
       return;
     });
+  }
+
+  // Ajouter un utilisateur à la DB
+  if (msg.content.startsWith('!addme')) {
+    createTableIfNotExists();
+    const username = msg.author.username;
+    const discordId = msg.author.id;
+
+    try {
+      await db.query(
+        'INSERT INTO users (discord_id, username) VALUES ($1, $2)',
+        [discordId, username],
+      );
+      msg.reply('Vous avez été ajouté à la base de données.');
+    } catch (error) {
+      console.error('Error adding user to database:', error);
+      msg.reply('Vous ne pouvez pas être ajouté à la base de données.');
+    }
+  }
+
+  // Lister les utilisateurs
+  if (msg.content.startsWith('!list')) {
+    try {
+      let res = await db.query('SELECT * FROM users');
+      res = res.rows;
+      msg.channel.send(res.map((r) => r.username).join('\n'));
+    } catch (error) {
+      console.error('Console error list users from database:', error);
+      msg.reply('La liste ne peut pas être récupérée.');
+    }
   }
 
   // Check author
