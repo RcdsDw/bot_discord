@@ -13,7 +13,7 @@ module.exports = {
     indent: ['error', 2],
     'linebreak-style': ['error', 'unix'],
     semi: ['error', 'always'],
-    'no-console': 'warn',
+    'no-console': ['error', { allow: ['error'] }],
   },
-  ignorePatterns: ['node_modules/', 'build/', 'dist/'],
+  ignorePatterns: ['node_modules/', 'build/', 'dist/', 'lib/', 'index.js'],
 };
