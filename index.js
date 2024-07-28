@@ -25,7 +25,7 @@ bot.login(process.env.TOKEN_BOT).catch((err) => {
 });
 
 bot.once('ready', () => {
-  console.log('Bot prêt !');
+  console.log(`Connecté en tant que ${bot.user.tag}`);
 });
 
 bot.on('messageCreate', async (msg) => {
