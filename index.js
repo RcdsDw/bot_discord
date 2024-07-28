@@ -43,6 +43,7 @@ bot.on('messageCreate', async (msg) => {
         msg.reply('Vous avez supprimé la base de données.');
       } catch (error) {
         console.error('Error deleting user from database:', error);
+        msg.reply('Une erreur est survenue lors de la suppression de la base de données.');
       }
     }
   }
