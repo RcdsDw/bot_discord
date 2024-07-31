@@ -1,3 +1,9 @@
+## Besoins
+
+- Node.js
+- PostgreSQL
+- Docker
+
 ## Installation
 
 git clone https://github.com/RcdsDw/bot_discord.git
