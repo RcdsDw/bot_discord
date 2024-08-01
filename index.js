@@ -1,50 +1,20 @@
 // Reply
 const { Coubeh } = require('./js/reply/coubeh.js');
-const { AntiCoubeh } = require('./js/reply/antiCoubeh.js');
+const { AntiCoubeh } = require('./js/reply/anti_coubeh.js');
 // Automation
-const { Twitter } = require('./js/automation/twitter.js');
-const { CheckPresence } = require('./js/automation/checkPresence.js');
+const { Twitter } = require('./js/automation/rename_twitter_link.js');
+const { CheckPresence } = require('./js/automation/check_presence.js');
 // Users
-const { AddMe } = require('./js/users/addMe.js');
-const { ListUsers } = require('./js/users/list.js');
+const { AddMe } = require('./js/users/add_me.js');
+const { ListAll } = require('./js/users/list_all.js');
 
-const { config } = require('dotenv');
 const db = require('./lib/db.js');
 const { bot } = require('./lib/bot.js');
-const { Events } = require('discord.js');
 
-config();
+require('dotenv').config();
 
 bot.login(process.env.TOKEN_BOT).catch((err) => {
   console.error('Failed to login:', err);
-});
-
-bot.on(Events.InteractionCreate, async (interaction) => {
-  if (!interaction.isChatInputCommand()) return;
-
-  const command = interaction.client.commands.get(interaction.commandName);
-
-  if (!command) {
-    console.error(`No command matching ${interaction.commandName} was found.`);
-    return;
-  }
-
-  try {
-    await command.execute(interaction);
-  } catch (error) {
-    console.error(error);
-    if (interaction.replied || interaction.deferred) {
-      await interaction.followUp({
-        content: 'There was an error while executing this command!',
-        ephemeral: true,
-      });
-    } else {
-      await interaction.reply({
-        content: 'There was an error while executing this command!',
-        ephemeral: true,
-      });
-    }
-  }
 });
 
 bot.on('messageCreate', async (msg) => {
@@ -81,7 +51,7 @@ bot.on('messageCreate', async (msg) => {
 
   // Lister les utilisateurs
   if (msg.content === '!LI') {
-    ListUsers(msg.author, msg);
+    ListAll(msg.author, msg);
   }
 
   // Check author

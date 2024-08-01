@@ -5,9 +5,9 @@ const {
   EmbedBuilder,
 } = require('discord.js');
 const db = require('../../lib/db.js');
-const { bot } = require('../../lib/bot.js');
+// const { bot } = require('../../lib/bot.js');
 
-async function ListUsers(params, msg) {
+async function ListAll(params, msg) {
   try {
     let res = await db.query('SELECT * FROM users');
     res = res.rows;
@@ -26,7 +26,7 @@ async function ListUsers(params, msg) {
         .setImage(user.avatar)
         .setFooter({
           text: `Utilisateur ${i + 1} sur ${res.length}`,
-          iconURL: bot.user.displayAvatarURL(),
+          // iconURL: bot.user.displayAvatarURL(),
         });
 
       return embed;
@@ -96,5 +96,5 @@ async function ListUsers(params, msg) {
 }
 
 module.exports = {
-  ListUsers,
+  ListAll,
 };
