@@ -7,8 +7,8 @@ const { CheckPresence } = require('./js/automation/check_presence.js');
 // Users
 const { AddMe } = require('./js/users/add_me.js');
 const { ListAll } = require('./js/users/list_all.js');
+const { DeleteDB } = require('./js/users/delete_db.js');
 
-const db = require('./lib/db.js');
 const { bot } = require('./lib/bot.js');
 
 require('dotenv').config();
@@ -35,13 +35,7 @@ bot.on('messageCreate', async (msg) => {
       return;
     }
 
-    try {
-      await db.query('DROP TABLE users');
-      msg.reply('La base de données a été supprimée.');
-    } catch (error) {
-      console.error('Error deleting databse', error);
-      msg.reply('Impossible de supprimer la base de données.');
-    }
+    DeleteDB(msg);
   }
 
   // Ajouter un utilisateur à la DB
