@@ -15,5 +15,12 @@ module.exports = {
     semi: ['error', 'always'],
     'no-console': ['error', { allow: ['error'] }],
   },
-  ignorePatterns: ['node_modules/', 'build/', 'dist/', 'lib/', 'index.js'],
+  ignorePatterns: [
+    'node_modules/',
+    'build/',
+    'dist/',
+    'lib/',
+    'index.js',
+    'deploy-commands.js',
+  ],
 };
