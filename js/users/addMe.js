@@ -1,12 +1,13 @@
 const db = require('../../lib/db.js');
 const { createTableIfNotExists } = require('../../lib/tables/users.js');
 
-async function AddMe(msg) {
+async function AddMe(params, msg) {
+  console.log("🚀 ~ AddMe ~ msg:", msg)
   createTableIfNotExists();
 
-  const discordId = msg.author.id;
-  const globalName = msg.author.globalName;
-  const avatar = msg.author.displayAvatarURL();
+  const discordId = params.id;
+  const globalName = params.globalName;
+  const avatar = params.displayAvatarURL();
 
   try {
     await db.query(
