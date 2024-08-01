@@ -7,7 +7,7 @@ const {
 const db = require('../../lib/db.js');
 const { bot } = require('../../lib/bot.js');
 
-async function ListUsers(msg) {
+async function ListUsers(params, msg) {
   try {
     let res = await db.query('SELECT * FROM users');
     res = res.rows;
@@ -51,7 +51,7 @@ async function ListUsers(msg) {
     const filter = (interaction) => {
       return (
         ['previous', 'next'].includes(interaction.customId) &&
-        interaction.user.id === msg.author.id
+        interaction.user.id === params.id
       );
     };
 

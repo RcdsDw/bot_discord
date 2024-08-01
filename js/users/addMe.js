@@ -2,7 +2,6 @@ const db = require('../../lib/db.js');
 const { createTableIfNotExists } = require('../../lib/tables/users.js');
 
 async function AddMe(params, msg) {
-  console.log("🚀 ~ AddMe ~ msg:", msg)
   createTableIfNotExists();
 
   const discordId = params.id;

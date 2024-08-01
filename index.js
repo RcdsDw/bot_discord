@@ -19,26 +19,32 @@ bot.login(process.env.TOKEN_BOT).catch((err) => {
   console.error('Failed to login:', err);
 });
 
-bot.on(Events.InteractionCreate, async interaction => {
-	if (!interaction.isChatInputCommand()) return;
-	
+bot.on(Events.InteractionCreate, async (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+
   const command = interaction.client.commands.get(interaction.commandName);
 
-	if (!command) {
-		console.error(`No command matching ${interaction.commandName} was found.`);
-		return;
-	}
+  if (!command) {
+    console.error(`No command matching ${interaction.commandName} was found.`);
+    return;
+  }
 
-	try {
-		await command.execute(interaction);
-	} catch (error) {
-		console.error(error);
-		if (interaction.replied || interaction.deferred) {
-			await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
-		} else {
-			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-		}
-	}
+  try {
+    await command.execute(interaction);
+  } catch (error) {
+    console.error(error);
+    if (interaction.replied || interaction.deferred) {
+      await interaction.followUp({
+        content: 'There was an error while executing this command!',
+        ephemeral: true,
+      });
+    } else {
+      await interaction.reply({
+        content: 'There was an error while executing this command!',
+        ephemeral: true,
+      });
+    }
+  }
 });
 
 bot.on('messageCreate', async (msg) => {
@@ -53,7 +59,7 @@ bot.on('messageCreate', async (msg) => {
   }
 
   // Supprimer de la DB
-  if (msg.content === "!DDB") {
+  if (msg.content === '!DDB') {
     if (msg.author.username !== 'judgeobito') {
       msg.reply("Vous n'avez pas le droit de faire ça.");
       return;
@@ -69,13 +75,13 @@ bot.on('messageCreate', async (msg) => {
   }
 
   // Ajouter un utilisateur à la DB
-  if (msg.content === "!AM") {
+  if (msg.content === '!AM') {
     AddMe(msg.author, msg);
   }
 
   // Lister les utilisateurs
-  if (msg.content === "!LI") {
-    ListUsers(msg);
+  if (msg.content === '!LI') {
+    ListUsers(msg.author, msg);
   }
 
   // Check author
