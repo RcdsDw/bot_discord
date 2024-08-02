@@ -3,6 +3,7 @@ const { Coubeh } = require('./js/reply/coubeh.js');
 const { AntiCoubeh } = require('./js/reply/anti_coubeh.js');
 // Automation
 const { Twitter } = require('./js/automation/rename_twitter_link.js');
+const { Tiktok } = require('./js/automation/integration_tiktok.js');
 const { CheckPresence } = require('./js/automation/check_presence.js');
 // Users
 const { AddMe } = require('./js/users/add_me.js');
@@ -18,6 +19,19 @@ bot.login(process.env.TOKEN_BOT).catch((err) => {
 });
 
 bot.on('messageCreate', async (msg) => {
+  // Tiktok refont url for play vidéo on discord
+  const tiktokRes = await Tiktok(msg.content);
+
+  console.log(tiktokRes);
+
+  if (tiktokRes && !msg.author.bot) {
+    console.log('PROUTdoc');
+    msg.delete().then(() => {
+      msg.channel.send(tiktokRes);
+      return;
+    });
+  }
+
   // Twitter refont url for play vidéo on discord
   const twitterRes = await Twitter(msg.content);
 
