@@ -11,13 +11,13 @@ async function Tiktok(msg) {
   ) {
     count++;
     try {
-      // console.log('🚀 ~ Tiktok ~ msg.content:', msg.content);
+      console.log('🚀 ~ Tiktok ~ msg.content:', msg.content);
       // Utilise l'API TikTok pour obtenir les données de la vidéo
       const response = await fetch(
         `https://www.tiktok.com/oembed?url=${encodeURIComponent(msg.content)}`,
       );
       const data = await response.json();
-      // console.log('🚀 ~ Tiktok ~ data:', data);
+      console.log('🚀 ~ Tiktok ~ data:', data);
 
       const embed = new EmbedBuilder()
         .setTitle(data.title)

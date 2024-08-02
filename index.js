@@ -20,20 +20,32 @@ bot.login(process.env.TOKEN_BOT).catch((err) => {
 
 bot.on('messageCreate', async (msg) => {
   // Tiktok refont url for play vidéo on discord
-  const tiktokRes = await Tiktok(msg);
-
-  if (tiktokRes && !msg.author.bot) {
-    msg.delete();
-  }
+  await Tiktok(msg).catch((err) => console.error(err));
 
   // Twitter refont url for play vidéo on discord
-  const twitterRes = await Twitter(msg.content);
+  const twitterRes = await Twitter(msg);
 
   if (twitterRes && !msg.author.bot) {
-    msg.delete().then(() => {
-      msg.channel.send(twitterRes.concat(`\n`, `Envoyé par ${msg.author.username}`));
-      return;
-    });
+    const author = msg.author.username;
+
+    try {
+      // Vérifie si le message existe avant de le supprimer
+      await msg.fetch();
+
+      // Supprime le message
+      await msg.delete();
+
+      // Envoie le nouveau message
+      await msg.channel.send(twitterRes.concat(`\n`, `Envoyé par ${author}`));
+    } catch (error) {
+      if (error.code === 10008) {
+        console.error(
+          'Error: Unknown Message. It might have been already deleted.',
+        );
+      } else {
+        console.error(`An error occurred: ${error.message}`);
+      }
+    }
   }
 
   // Supprimer de la DB

@@ -22,5 +22,6 @@ module.exports = {
     'lib/',
     'index.js',
     'deploy-commands.js',
+    'js/',
   ],
 };
