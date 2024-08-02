@@ -1,12 +1,15 @@
 const { EmbedBuilder } = require('discord.js');
 
 async function Tiktok(msg) {
-  const tiktokReg =
-    /^https:\/\/www\.tiktok\.com/ | /^https:\/\/vm\.tiktok\.com\//;
-  let count = 0;
-  if (msg.content.match(tiktokReg) && count === 0) {
-    count++;
+  const tiktokReg = /^https:\/\/www\.tiktok\.com/;
+  const tiktokVmReg = /^https:\/\/vm\.tiktok\.com\//;
 
+  let count = 0;
+  if (
+    (msg.content.match(tiktokReg) || msg.content.match(tiktokVmReg)) &&
+    count === 0
+  ) {
+    count++;
     try {
       console.log('🚀 ~ Tiktok ~ msg.content:', msg.content);
       // Utilise l'API TikTok pour obtenir les données de la vidéo

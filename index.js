@@ -20,14 +20,18 @@ bot.login(process.env.TOKEN_BOT).catch((err) => {
 
 bot.on('messageCreate', async (msg) => {
   // Tiktok refont url for play vidéo on discord
-  await Tiktok(msg);
+  const tiktokRes = await Tiktok(msg);
+
+  if (tiktokRes && !msg.author.bot) {
+    msg.delete();
+  }
 
   // Twitter refont url for play vidéo on discord
   const twitterRes = await Twitter(msg.content);
 
   if (twitterRes && !msg.author.bot) {
     msg.delete().then(() => {
-      msg.channel.send(twitterRes);
+      msg.channel.send(twitterRes.join(`\n Envoyé par ${msg.author.username}`));
       return;
     });
   }
