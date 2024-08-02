@@ -31,7 +31,7 @@ bot.on('messageCreate', async (msg) => {
 
   if (twitterRes && !msg.author.bot) {
     msg.delete().then(() => {
-      msg.channel.send(twitterRes.join(`\n Envoyé par ${msg.author.username}`));
+      msg.channel.send(twitterRes.concat(`\n`, `Envoyé par ${msg.author.username}`));
       return;
     });
   }
