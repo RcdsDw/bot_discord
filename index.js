@@ -20,17 +20,7 @@ bot.login(process.env.TOKEN_BOT).catch((err) => {
 
 bot.on('messageCreate', async (msg) => {
   // Tiktok refont url for play vidéo on discord
-  const tiktokRes = await Tiktok(msg.content);
-
-  console.log(tiktokRes);
-
-  if (tiktokRes && !msg.author.bot) {
-    console.log('PROUTdoc');
-    msg.delete().then(() => {
-      msg.channel.send(tiktokRes);
-      return;
-    });
-  }
+  await Tiktok(msg);
 
   // Twitter refont url for play vidéo on discord
   const twitterRes = await Twitter(msg.content);
