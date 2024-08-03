@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Commande à exécuter au démarrage du conteneur
-CMD ["node", "index.js"]
+CMD ["npm", "run", "dev"]

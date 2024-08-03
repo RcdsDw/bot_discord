@@ -14,9 +14,14 @@ const { bot } = require('./lib/bot.js');
 
 require('dotenv').config();
 
-bot.login(process.env.TOKEN_BOT).catch((err) => {
-  console.error('Failed to login:', err);
-});
+bot
+  .login(process.env.TOKEN_BOT)
+  .then(() => {
+    console.log('Logged in as', bot.user.tag);
+  })
+  .catch((err) => {
+    console.error('Failed to login:', err);
+  });
 
 bot.on('messageCreate', async (msg) => {
   // Tiktok refont url for play vidéo on discord
@@ -34,7 +39,6 @@ bot.on('messageCreate', async (msg) => {
 
       // Supprime le message
       await msg.delete();
-
       // Envoie le nouveau message
       await msg.channel.send(twitterRes.concat(`\n`, `Envoyé par ${author}`));
     } catch (error) {
@@ -94,16 +98,15 @@ bot.on('messageCreate', async (msg) => {
   ) {
     const antiCoubehRes = await AntiCoubeh(msg.content);
     if (antiCoubehRes) {
-      msg.channel.send(antiCoubehRes);
+      msg.reply(antiCoubehRes);
       return;
     }
   }
 
   // Bot coubeh/kette/feur
   const coubehRes = await Coubeh(msg.content);
-
   if (coubehRes) {
-    msg.channel.send(coubehRes);
+    msg.reply(coubehRes);
     return;
   }
 
@@ -120,7 +123,7 @@ bot.on('messageCreate', async (msg) => {
         "Il est sur l'île d'Apagnan mais il sera bientôt de retour pour coubeh un max avec le VC.\n\n" +
         'Merci de votre compréhension.\n\n' +
         'Cordialement,\n' +
-        'Sa secrétaire.',
+        'Son agent.',
     );
     return;
   }
