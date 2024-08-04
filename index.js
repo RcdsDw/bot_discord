@@ -2,8 +2,9 @@
 const { Coubeh } = require('./js/reply/coubeh.js');
 const { AntiCoubeh } = require('./js/reply/anti_coubeh.js');
 // Automation
-const { Twitter } = require('./js/automation/rename_twitter_link.js');
-const { Tiktok } = require('./js/automation/integration_tiktok.js');
+const {
+  RelinkSocialVideos,
+} = require('./js/automation/relink_social_videos.js');
 const { CheckPresence } = require('./js/automation/check_presence.js');
 // Users
 const { AddMe } = require('./js/users/add_me.js');
@@ -11,6 +12,7 @@ const { ListAll } = require('./js/users/list_all.js');
 const { DeleteDB } = require('./js/users/delete_db.js');
 
 const { bot } = require('./lib/bot.js');
+const { userMention } = require('discord.js');
 
 require('dotenv').config();
 
@@ -24,42 +26,27 @@ bot
   });
 
 bot.on('messageCreate', async (msg) => {
-  // Tiktok refont url for play vidéo on discord
-  await Tiktok(msg).catch((err) => console.error(err));
+  const author = userMention(msg.author.id);
 
-  // Twitter refont url for play vidéo on discord
-  const twitterRes = await Twitter(msg);
+  // Tiktok/Twitter refont url for play vidéo on discord
+  const RelinkVideosSocialRes = await RelinkSocialVideos(msg.content);
 
-  if (twitterRes && !msg.author.bot) {
-    const author = msg.author.username;
-
-    try {
-      // Vérifie si le message existe avant de le supprimer
-      await msg.fetch();
-
-      // Supprime le message
-      await msg.delete();
-      // Envoie le nouveau message
-      await msg.channel.send(twitterRes.concat(`\n`, `Envoyé par ${author}`));
-    } catch (error) {
-      if (error.code === 10008) {
-        console.error(
-          'Error: Unknown Message. It might have been already deleted.',
+  if (RelinkVideosSocialRes && !msg.author.bot) {
+    msg
+      .delete()
+      .then(() => {
+        msg.channel.send(
+          RelinkVideosSocialRes.concat(`\n`, `Envoyé par ${author}`),
         );
-      } else {
-        console.error(`An error occurred: ${error.message}`);
-      }
-    }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   // Supprimer de la DB
   if (msg.content === '!DDB') {
-    if (msg.author.username !== 'judgeobito') {
-      msg.reply("Vous n'avez pas le droit de faire ça.");
-      return;
-    }
-
-    DeleteDB(msg);
+    DeleteDB(msg, msg.author);
   }
 
   // Ajouter un utilisateur à la DB
