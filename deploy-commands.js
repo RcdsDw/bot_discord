@@ -25,8 +25,10 @@ const rest = new REST().setToken(process.env.TOKEN_BOT);
     console.log(
       `Successfully reloaded ${data.length} application (/) commands.`,
     );
+    return;
   } catch (error) {
     // And of course, make sure you catch and log any errors!
     console.error(error);
+    return;
   }
 })();
