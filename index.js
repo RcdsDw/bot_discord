@@ -88,26 +88,22 @@ bot.on('messageCreate', async (msg) => {
         .catch((err) => {
           console.error(err);
         });
+      return;
     }
-  } else {
-    return;
   }
 
   //*---------------------------------------*
   // Mathis react
   //*---------------------------------------*
+
   if (author.username === 'karyan') {
-    try {
-      await msg.react('🇬');
-      await msg.react('🇷');
-      await msg.react('🇴');
-      await msg.react('🇸');
-      await msg.react('🇵');
-      await msg.react('🇩');
-    } catch (error) {
-      console.error('Error adding reactions:', error);
-    }
-    return;
+    await msg.react('🇬');
+    await msg.react('🇷');
+    await msg.react('🇴');
+    await msg.react('🇸');
+    await msg.react('🇵');
+    await msg.react('🇩');
+    return
   }
 
   //*---------------------------------------*
