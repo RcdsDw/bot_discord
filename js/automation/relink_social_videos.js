@@ -24,7 +24,7 @@ async function RelinkSocialVideos(msg) {
     const data = await followRedirect(msg);
     const index = data.match(/[?]/).index;
     let newData = data.slice(0, index);
-
+    
     if (tiktokReg.test(newData)) {
       const newMsg = newData.replace(tiktokReg, res.tiktok);
       return newMsg;

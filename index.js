@@ -17,6 +17,7 @@ const { DeleteDB } = require('./js/users/delete_db.js');
 
 trashs = require('./datas/trashs.json');
 compliments = require('./datas/compliments.json');
+karyan = require('./datas/karyan.json');
 
 require('dotenv').config();
 moment.locale('fr');
@@ -97,13 +98,19 @@ bot.on('messageCreate', async (msg) => {
   //*---------------------------------------*
 
   if (author.username === 'karyan') {
-    await msg.react('🇬');
-    await msg.react('🇷');
-    await msg.react('🇴');
-    await msg.react('🇸');
-    await msg.react('🇵');
-    await msg.react('🇩');
-    return
+    const number = Math.floor(Math.random() * 20);
+
+    if (number === 3) {
+      const reply = karyan[Math.floor(Math.random() * karyan.length)]
+      const replyMessage = await msg.reply({
+        content: reply,
+        fetchReply: true,
+      })
+      replyMessage.react('🍔');
+      replyMessage.react('🍟');
+      replyMessage.react('🍦');
+      return;
+    }
   }
 
   //*---------------------------------------*
