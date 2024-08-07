@@ -101,11 +101,11 @@ bot.on('messageCreate', async (msg) => {
     const number = Math.floor(Math.random() * 20);
 
     if (number === 3) {
-      const reply = karyan[Math.floor(Math.random() * karyan.length)]
+      const reply = karyan[Math.floor(Math.random() * karyan.length)];
       const replyMessage = await msg.reply({
         content: reply,
         fetchReply: true,
-      })
+      });
       replyMessage.react('🍔');
       replyMessage.react('🍟');
       replyMessage.react('🍦');
@@ -180,7 +180,11 @@ bot.on('messageCreate', async (msg) => {
 
   const coubehRes = await Coubeh(content);
   if (coubehRes) {
-    msg.reply(coubehRes);
+    await AddLoose(msg.author.id).then(async () => {
+      await CountLooses(msg.author.id).then(async (count) => {
+        msg.reply(coubehRes + `\n ${count} - 0, bouffon.`);
+      });
+    });
     return;
   }
 

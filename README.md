@@ -34,8 +34,8 @@ npm run checkall
 Pour déployer sur le serveur :
 
 - Configurer en amont vos variables secrètes Github
-- Ensuite : git push < distant >  < branch > (le workflow s'en chargera)
+- Ensuite : git push < distant > < branch > (le workflow s'en chargera)
 
-Sinon : 
+Sinon :
 
 Supprimez le dossier .github

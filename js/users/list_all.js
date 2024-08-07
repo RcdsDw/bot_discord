@@ -25,7 +25,7 @@ async function ListAll(params, msg) {
         .setTitle(user.global_name)
         .setImage(user.avatar)
         .setFooter({
-          text: `Utilisateur ${i + 1} sur ${res.length}`,
+          text: `Utilisateur ${i + 1} sur ${res.length} \n S'est fait avoir ${user.number_of_looses} fois.`,
           // iconURL: bot.user.displayAvatarURL(),
         });
 
