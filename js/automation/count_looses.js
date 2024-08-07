@@ -6,9 +6,9 @@ async function AddLoose(id) {
       `
       UPDATE users
       SET number_of_looses = number_of_looses + 1
-      WHERE discord_id = ?
+      WHERE discord_id = $1
     `,
-      id,
+      [id],
     );
   } catch (error) {
     console.error('Erreur lors de la mise à jour de la table users:', error);
@@ -21,9 +21,9 @@ async function CountLooses(id) {
       `
       SELECT number_of_looses
       FROM users
-      WHERE discord_id = ?
+      WHERE discord_id = $1
     `,
-      id,
+      [id],
     );
     return res.rows[0].number_of_looses;
   } catch (error) {
