@@ -10,9 +10,8 @@ const {
   RelinkSocialVideos,
 } = require('./js/automation/relink_social_videos.js');
 const { CheckPresence } = require('./js/automation/check_presence.js');
-const { AddLoose, CountLooses } = require('./js/automation/count_looses.js');
+const { AddLoose, CountLooses } = require('./js/automation/looses.js');
 // Users
-const { AddMe } = require('./js/users/add_me.js');
 const { ListAll } = require('./js/users/list_all.js');
 const { DeleteDB } = require('./js/users/delete_db.js');
 
@@ -47,14 +46,6 @@ bot.on('messageCreate', async (msg) => {
 
   if (content === '!DDB') {
     DeleteDB(msg, author);
-  }
-
-  //*---------------------------------------*
-  // Ajouter un utilisateur à la DB
-  //*---------------------------------------*
-
-  if (content === '!AM') {
-    AddMe(author, msg);
   }
 
   //*---------------------------------------*
