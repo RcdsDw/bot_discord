@@ -1,6 +1,7 @@
-const db = require('../../lib/db.js');
+import { Message, User } from 'discord.js';
+import { db } from '../../lib/db';
 
-async function DeleteDB(msg, author) {
+export async function DeleteDB(msg: Message, author: User) {
   if (author.username === 'judgeobito') {
     try {
       await db.query('DROP TABLE users');
@@ -14,7 +15,3 @@ async function DeleteDB(msg, author) {
     return;
   }
 }
-
-module.exports = {
-  DeleteDB,
-};

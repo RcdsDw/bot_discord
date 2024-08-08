@@ -1,4 +1,6 @@
-function CheckPresence(userId, guild) {
+import { Guild } from "discord.js";
+
+export function CheckPresence(userId: string, guild: Guild) {
   const member = guild.members.cache.get(userId);
   if (member) {
     const presenceStatus = member.presence?.status;
@@ -6,7 +8,3 @@ function CheckPresence(userId, guild) {
   }
   return false;
 }
-
-module.exports = {
-  CheckPresence,
-};

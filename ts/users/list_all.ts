@@ -1,15 +1,10 @@
-const {
-  ButtonStyle,
-  ActionRowBuilder,
-  ButtonBuilder,
-  EmbedBuilder,
-} = require('discord.js');
-const db = require('../../lib/db.js');
+import { ButtonStyle, ActionRowBuilder, ButtonBuilder, EmbedBuilder, Message, User } from 'discord.js';
+import { db } from '../../lib/db';
 // const { bot } = require('../../lib/bot.js');
 
-async function ListAll(params, msg) {
+export async function ListAll(msg: Message, author: User) {
   try {
-    let res = await db.query('SELECT * FROM users');
+    let res: any = await db.query('SELECT * FROM users');
     res = res.rows;
 
     if (res.length === 0) {
@@ -19,7 +14,7 @@ async function ListAll(params, msg) {
 
     let i = 0;
 
-    const updateUserEmbed = (i) => {
+    const updateUserEmbed = (i: number) => {
       const user = res[i];
       const embed = new EmbedBuilder()
         .setTitle(user.global_name)
@@ -32,7 +27,7 @@ async function ListAll(params, msg) {
       return embed;
     };
 
-    const row = new ActionRowBuilder().addComponents(
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()
         .setCustomId('previous')
         .setLabel('<')
@@ -48,10 +43,10 @@ async function ListAll(params, msg) {
       components: [row],
     });
 
-    const filter = (interaction) => {
+    const filter = (interaction: any) => {
       return (
         ['previous', 'next'].includes(interaction.customId) &&
-        interaction.user.id === params.id
+        interaction.user.id === author.id
       );
     };
 
@@ -74,7 +69,7 @@ async function ListAll(params, msg) {
     });
 
     collector.on('end', () => {
-      const disabledRow = new ActionRowBuilder().addComponents(
+      const disabledRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
         new ButtonBuilder()
           .setCustomId('previous')
           .setLabel('<')
@@ -94,7 +89,3 @@ async function ListAll(params, msg) {
     msg.reply('La liste ne peut pas être récupérée.');
   }
 }
-
-module.exports = {
-  ListAll,
-};

@@ -1,4 +1,4 @@
-async function Coubeh(msg) {
+export async function Coubeh(msg: string) {
   const quiReg = /\b(qui|ki)(?=\s?.*[?¿]|$)/i;
   const quoiReg = /\b(quoi|koi|kwa|qwa|koua|quoua)(?=\s?.*[?¿]|$)/i;
   const pourQuiReg = /\b(pour qui|pour ki|pour qui|pourki)(?=\s?.*[?¿]|$)/;
@@ -14,7 +14,3 @@ async function Coubeh(msg) {
     return 'Kette mon grand, tu le sais !';
   }
 }
-
-module.exports = {
-  Coubeh,
-};

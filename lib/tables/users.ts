@@ -1,6 +1,6 @@
-const db = require('../db.js');
+import { db } from '../db';
 
-async function createTableIfNotExists() {
+export async function createTableIfNotExists() {
   const query = `
       CREATE TABLE IF NOT EXISTS users (
         discord_id VARCHAR(255) PRIMARY KEY,
@@ -15,7 +15,3 @@ async function createTableIfNotExists() {
     console.error('Erreur lors de la création de la table users:', error);
   }
 }
-
-module.exports = {
-  createTableIfNotExists,
-};

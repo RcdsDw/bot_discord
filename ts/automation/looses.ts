@@ -1,6 +1,6 @@
-const db = require('../../lib/db');
+import { db } from '../../lib/db';
 
-async function AddLoose(id) {
+export async function AddLoose(id: string) {
   try {
     await db.query(
       `
@@ -15,7 +15,7 @@ async function AddLoose(id) {
   }
 }
 
-async function CountLooses(id) {
+export async function CountLooses(id: string) {
   try {
     const res = await db.query(
       `
@@ -30,8 +30,3 @@ async function CountLooses(id) {
     console.error('Erreur lors de la récupération de la table users:', error);
   }
 }
-
-module.exports = {
-  AddLoose,
-  CountLooses,
-};

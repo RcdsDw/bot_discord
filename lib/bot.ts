@@ -1,9 +1,18 @@
-const { Client, GatewayIntentBits, Events } = require('discord.js');
-const { getCommands } = require('./command');
-const db = require('./db');
-const { createTableIfNotExists } = require('./tables/users');
+import { getCommands } from './command';
+import { createTableIfNotExists } from './tables/users';
+import { db } from './db';
+import { GuildMember, Interaction } from 'discord.js';
 
-const bot = new Client({
+import { Client, GatewayIntentBits, Events, Collection } from 'discord.js';
+import { Command } from './interfaces/interfaces';
+
+declare module 'discord.js' {
+  interface Client {
+    commands: Collection<string, Command>;
+  }
+}
+
+export const bot = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
@@ -25,7 +34,7 @@ bot.on('ready', async () => {
   }
 
   const members = await guild.members.fetch();
-  members.forEach(async (member) => {
+  members.forEach(async (member: GuildMember) => {
     if (member.user.bot) {
       return;
     }
@@ -44,7 +53,9 @@ bot.on('ready', async () => {
             : member.user.globalName
               ? member.user.globalName
               : member.user.username,
-          member.user.avatarURL() ? member.user.avatarURL() : 'https://cdn.discordapp.com/embed/avatars/0.png',
+          member.user.avatarURL()
+            ? member.user.avatarURL()
+            : 'https://cdn.discordapp.com/embed/avatars/0.png',
           0,
         ],
       );
@@ -53,7 +64,7 @@ bot.on('ready', async () => {
 });
 
 // Redirige sur les slashs commands
-bot.on(Events.InteractionCreate, async (interaction) => {
+bot.on(Events.InteractionCreate, async (interaction: Interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   const command = interaction.client.commands.get(interaction.commandName);
@@ -80,7 +91,3 @@ bot.on(Events.InteractionCreate, async (interaction) => {
     }
   }
 });
-
-module.exports = {
-  bot,
-};
