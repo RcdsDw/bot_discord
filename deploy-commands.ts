@@ -8,7 +8,9 @@ const clientId = process.env.CLIENT_ID;
 
 let commands = getCommands();
 
-let commandsArray = Array.from(commands.values()).map((command) => command.data.toJSON());
+let commandsArray = Array.from(commands.values()).map((command) =>
+  command.data.toJSON(),
+);
 
 if (!token || !clientId) {
   throw new Error('TOKEN_BOT or CLIENT_ID not set');
@@ -25,10 +27,9 @@ const rest = new REST().setToken(token);
     );
 
     // The put method is used to fully refresh all commands in the guild with the current set
-    const data: any = await rest.put(
-      Routes.applicationCommands(clientId),
-      { body: commandsArray },
-    );
+    const data: any = await rest.put(Routes.applicationCommands(clientId), {
+      body: commandsArray,
+    });
 
     console.log(
       `Successfully reloaded ${data.length} application (/) commands.`,

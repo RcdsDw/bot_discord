@@ -1,11 +1,16 @@
-import { ButtonStyle, ActionRowBuilder, ButtonBuilder, EmbedBuilder, Message, User } from 'discord.js';
-import { db } from '../../lib/db';
-// const { bot } = require('../../lib/bot.js');
+import {
+  ButtonStyle,
+  ActionRowBuilder,
+  ButtonBuilder,
+  EmbedBuilder,
+  Message,
+  User,
+} from 'discord.js';
+import { DiscordUser } from '../../lib/models/users';
 
 export async function ListAll(msg: Message, author: User) {
   try {
-    let res: any = await db.query('SELECT * FROM users');
-    res = res.rows;
+    let res = await DiscordUser.findAll();
 
     if (res.length === 0) {
       msg.reply('La liste est vide.');

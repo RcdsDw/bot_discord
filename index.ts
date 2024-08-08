@@ -11,7 +11,6 @@ import { CheckPresence } from './ts/automation/check_presence';
 import { AddLoose, CountLooses } from './ts/automation/looses';
 // Users
 import { ListAll } from './ts/users/list_all';
-import { DeleteDB } from './ts/users/delete_db';
 
 import trashs from './datas/trashs.json';
 import compliments from './datas/compliments.json';
@@ -19,6 +18,7 @@ import karyan from './datas/karyan.json';
 
 import * as dotenv from 'dotenv';
 dotenv.config();
+
 moment.locale('fr');
 
 bot
@@ -40,14 +40,6 @@ bot.on('messageCreate', async (msg: Message) => {
   const content = msg.content;
 
   const listVIP = ['judgeobito', 'cocacolack'];
-
-  //*---------------------------------------*
-  // Supprimer de la DB
-  //*---------------------------------------*
-
-  if (content === '!DDB') {
-    DeleteDB(msg, author);
-  }
 
   //*---------------------------------------*
   // Lister les utilisateurs
@@ -112,12 +104,17 @@ bot.on('messageCreate', async (msg: Message) => {
   let referencedMessage: Message<boolean> | undefined;
 
   if (msg.reference) {
-    referencedMessage = await channel.messages.fetch(msg.reference.messageId as string);
+    referencedMessage = await channel.messages.fetch(
+      msg.reference.messageId as string,
+    );
   }
 
   if (
-    (bot.user && (msg.reference && referencedMessage && referencedMessage.author.id === bot.user.id) ||
-      bot.user && msg.mentions.has(bot.user)) &&
+    ((bot.user &&
+      msg.reference &&
+      referencedMessage &&
+      referencedMessage.author.id === bot.user.id) ||
+      (bot.user && msg.mentions.has(bot.user))) &&
     !author.bot
   ) {
     if (author.username === 'judgeobito') {
@@ -153,7 +150,8 @@ bot.on('messageCreate', async (msg: Message) => {
   //*---------------------------------------*
 
   if (
-    (msg.reference && referencedMessage &&
+    (msg.reference &&
+      referencedMessage &&
       listVIP.some((vip) => referencedMessage.author.username === vip)) ||
     listVIP.some((vip) =>
       msg.mentions.users.some((user) => user.username === vip),
@@ -172,11 +170,15 @@ bot.on('messageCreate', async (msg: Message) => {
 
   const coubehRes = await Coubeh(content);
   if (coubehRes) {
-    await AddLoose(msg.author.id).then(async () => {
-      await CountLooses(msg.author.id).then(async (count) => {
-        msg.reply(coubehRes + `\n ${count} - 0, bouffon.`);
+    await AddLoose(msg.author.id)
+      .then(async () => {
+        await CountLooses(msg.author.id).then(async (count) => {
+          msg.reply(coubehRes + `\n ${count} - 0, bouffon.`);
+        });
+      })
+      .catch(() => {
+        msg.reply(coubehRes);
       });
-    });
     return;
   }
 

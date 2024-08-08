@@ -1,10 +1,17 @@
 import { getCommands } from './command';
-import { createTableIfNotExists } from './tables/users';
-import { db } from './db';
-import { GuildMember, Interaction } from 'discord.js';
 
-import { Client, GatewayIntentBits, Events, Collection } from 'discord.js';
+import {
+  Client,
+  GatewayIntentBits,
+  Events,
+  Collection,
+  Interaction,
+  GuildMember,
+} from 'discord.js';
 import { Command } from './interfaces/interfaces';
+
+import { connectDb } from './db';
+import { DiscordUser } from './models/users';
 
 declare module 'discord.js' {
   interface Client {
@@ -25,7 +32,7 @@ export const bot = new Client({
 bot.commands = getCommands();
 
 bot.on('ready', async () => {
-  await createTableIfNotExists();
+  await connectDb(); // Connecter à la base de données avant de continuer
 
   const guild = bot.guilds.cache.get('1169725987454464051');
   if (!guild) {
@@ -34,33 +41,31 @@ bot.on('ready', async () => {
   }
 
   const members = await guild.members.fetch();
-  members.forEach(async (member: GuildMember) => {
-    if (member.user.bot) {
-      return;
+  for (const member of members.values()) {
+    if (member.user.bot) continue;
+
+    const [user, created] = await DiscordUser.findOrCreate({
+      where: { discord_id: member.user.id },
+      defaults: {
+        global_name: member.nickname || member.user.username,
+        avatar:
+          member.user.avatarURL() ||
+          'https://cdn.discordapp.com/embed/avatars/0.png',
+        number_of_looses: 0,
+      },
+    });
+
+    if (!created) {
+      // Update existing user data if necessary
+      await user.update({
+        global_name: member.nickname || member.user.username,
+        avatar:
+          member.user.avatarURL() ||
+          'https://cdn.discordapp.com/embed/avatars/0.png',
+      });
     }
-    // Check if the member already exists in the database
-    const result = await db.query('SELECT 1 FROM users WHERE discord_id = $1', [
-      member.user.id,
-    ]);
-    if (result.rowCount === 0) {
-      await db.query(
-        `INSERT INTO users (discord_id, global_name, avatar, number_of_looses) VALUES ($1, $2, $3, $4) 
-          ON CONFLICT (discord_id) DO UPDATE SET global_name = $2, avatar = $3, number_of_looses = $4`,
-        [
-          member.user.id,
-          member.nickname
-            ? member.nickname
-            : member.user.globalName
-              ? member.user.globalName
-              : member.user.username,
-          member.user.avatarURL()
-            ? member.user.avatarURL()
-            : 'https://cdn.discordapp.com/embed/avatars/0.png',
-          0,
-        ],
-      );
-    }
-  });
+  }
+  console.log('Tous les membres ont été traités.');
 });
 
 // Redirige sur les slashs commands
