@@ -1,5 +1,5 @@
 import { connectDb } from '../../lib/db';
-import { DiscordUser } from './../../lib/models/users';
+import { DiscordUser } from '../../lib/models/users';
 
 export async function AddLoose(id: string) {
   await connectDb();

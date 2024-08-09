@@ -9,7 +9,7 @@ if (!dbUrl) {
 }
 
 export const sequelize = new Sequelize(dbUrl, {
-  models: [__dirname + '/models/*.ts'],
+  models: [__dirname + './models/*.ts'],
 });
 
 export const connectDb = async () => {
