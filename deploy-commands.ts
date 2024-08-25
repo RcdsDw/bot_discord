@@ -1,43 +1,31 @@
+import 'dotenv/config';
 import { REST, Routes } from 'discord.js';
 import { getCommands } from './lib/command';
-import * as dotenv from 'dotenv';
-dotenv.config();
 
-const token = process.env.TOKEN_BOT;
-const clientId = process.env.CLIENT_ID;
+// Vérifiez si les variables d'environnement sont définies
+const token = process.env.TOKEN_BOT ?? '';
+const clientId = process.env.CLIENT_ID ?? '';
 
-let commands = getCommands();
+// Obtenez les commandes et convertissez-les en JSON
+const commands: string[] = getCommands().map((command: any) => command.data.toJSON());
 
-let commandsArray = Array.from(commands.values()).map((command) =>
-  command.data.toJSON(),
-);
+// Instanciez le module REST
+const rest = new REST({ version: '10' }).setToken(token);
 
-if (!token || !clientId) {
-  throw new Error('TOKEN_BOT or CLIENT_ID not set');
-}
-
-// Construct and prepare an instance of the REST module
-const rest = new REST().setToken(token);
-
-// and deploy your commands!
+// Déployez les commandes
 (async () => {
   try {
-    console.log(
-      `Started refreshing ${commandsArray.length} application (/) commands.`,
+    console.log(`Started refreshing ${commands.length} application (/) commands.`);
+
+    // Utilisez la méthode PUT pour rafraîchir toutes les commandes dans la guilde
+    const data_commands: any = await rest.put(
+      Routes.applicationCommands(clientId),
+      { body: commands },
     );
 
-    // The put method is used to fully refresh all commands in the guild with the current set
-    const data: any = await rest.put(Routes.applicationCommands(clientId), {
-      body: commandsArray,
-    });
-
-    console.log(
-      `Successfully reloaded ${data.length} application (/) commands.`,
-    );
-    return;
+    console.log(`Successfully reloaded ${data_commands.length} application (/) commands.`);
   } catch (error) {
-    // And of course, make sure you catch and log any errors!
-    console.error(error);
-    return;
+    // Attrapez et loguez toutes les erreurs
+    console.error('Error deploying commands:', error);
   }
 })();
