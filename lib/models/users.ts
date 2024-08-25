@@ -1,4 +1,11 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  BelongsToMany,
+} from 'sequelize-typescript';
+import { DiscordGuild } from './guilds';
 
 @Table({
   tableName: 'users',
@@ -21,4 +28,7 @@ export class DiscordUser extends Model {
     defaultValue: 0,
   })
   number_of_looses!: number;
+
+  @BelongsToMany(() => DiscordGuild, 'guild_user', 'user_id', 'guild_id')
+  discordGuilds!: DiscordGuild[];
 }

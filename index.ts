@@ -14,7 +14,8 @@ import { ListAll } from './ts/users/list_all';
 
 import trashs from './datas/trashs.json';
 import compliments from './datas/compliments.json';
-import karyan from './datas/karyan.json';
+import ka from './datas/ka.json';
+import ryan from './datas/ryan.json';
 
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -83,10 +84,10 @@ bot.on('messageCreate', async (msg: Message) => {
   //*---------------------------------------*
 
   if (author.username === 'karyan') {
-    const number = Math.floor(Math.random() * 20);
+    const number = Math.floor(Math.random() * 30);
 
     if (number === 3) {
-      const reply = karyan[Math.floor(Math.random() * karyan.length)];
+      const reply = `${ka[Math.floor(Math.random() * ka.length)]} ${ryan[Math.floor(Math.random() * ryan.length)]}`;
       const replyMessage = await msg.reply({
         content: reply,
       });

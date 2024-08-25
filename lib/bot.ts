@@ -6,7 +6,6 @@ import {
   Events,
   Collection,
   Interaction,
-  GuildMember,
 } from 'discord.js';
 import { Command } from './interfaces/interfaces';
 
@@ -32,40 +31,47 @@ export const bot = new Client({
 bot.commands = getCommands();
 
 bot.on('ready', async () => {
-  await connectDb(); // Connecter à la base de données avant de continuer
+  try {
+    await connectDb(); // Connecter à la base de données avant de continuer
 
-  const guild = bot.guilds.cache.get('1169725987454464051');
-  if (!guild) {
-    console.log('Guild not found');
-    return;
-  }
+    for (const guild of bot.guilds.cache.values()) {
+      if (!guild) {
+        console.log('Guild not found');
+        return;
+      }
 
-  const members = await guild.members.fetch();
-  for (const member of members.values()) {
-    if (member.user.bot) continue;
+      const members = await guild.members.fetch();
+      for (const member of members.values()) {
+        if (member.user.bot) continue;
 
-    const [user, created] = await DiscordUser.findOrCreate({
-      where: { discord_id: member.user.id },
-      defaults: {
-        global_name: member.nickname || member.user.username,
-        avatar:
-          member.user.avatarURL() ||
-          'https://cdn.discordapp.com/embed/avatars/0.png',
-        number_of_looses: 0,
-      },
-    });
+        const [user, created] = await DiscordUser.findOrCreate({
+          where: { discord_id: member.user.id },
+          defaults: {
+            global_name:
+              member.nickname || member.user.globalName || member.user.username,
+            avatar:
+              member.user.avatarURL() ||
+              'https://cdn.discordapp.com/embed/avatars/0.png',
+            number_of_looses: 0,
+          },
+        });
 
-    if (!created) {
-      // Update existing user data if necessary
-      await user.update({
-        global_name: member.nickname || member.user.username,
-        avatar:
-          member.user.avatarURL() ||
-          'https://cdn.discordapp.com/embed/avatars/0.png',
-      });
+        if (!created) {
+          // Update existing user data if necessary
+          await user.update({
+            global_name:
+              member.nickname || member.user.globalName || member.user.username,
+            avatar:
+              member.user.avatarURL() ||
+              'https://cdn.discordapp.com/embed/avatars/0.png',
+          });
+        }
+      }
     }
+    console.log('Tous les membres ont été traités.');
+  } catch (error) {
+    console.error('Error while connecting to the database:', error);
   }
-  console.log('Tous les membres ont été traités.');
 });
 
 // Redirige sur les slashs commands

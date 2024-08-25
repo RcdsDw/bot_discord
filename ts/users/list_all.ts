@@ -7,26 +7,36 @@ import {
   User,
 } from 'discord.js';
 import { DiscordUser } from '../../lib/models/users';
+import { DiscordGuild } from '../../lib/models/guilds';
 
 export async function ListAll(msg: Message, author: User) {
-  try {
-    let res = await DiscordUser.findAll();
+  const guildId = msg.guildId;
 
-    if (res.length === 0) {
-      msg.reply('La liste est vide.');
+  if (!guildId) {
+    msg.reply('Impossible de récupérer la guilde.');
+    return;
+  }
+
+  try {
+    const guild = await DiscordGuild.findByPk(guildId, {
+      include: DiscordUser,
+    });
+
+    if (!guild || !guild.discordUsers || guild.discordUsers.length === 0) {
+      msg.reply('La liste est vide pour cette guilde.');
       return;
     }
 
+    const users = guild.discordUsers;
     let i = 0;
 
     const updateUserEmbed = (i: number) => {
-      const user = res[i];
+      const user = users[i];
       const embed = new EmbedBuilder()
         .setTitle(user.global_name)
         .setImage(user.avatar)
         .setFooter({
-          text: `Utilisateur ${i + 1} sur ${res.length} \n S'est fait avoir ${user.number_of_looses} fois.`,
-          // iconURL: bot.user.displayAvatarURL(),
+          text: `Utilisateur ${i + 1} sur ${users.length} \n S'est fait avoir ${user.number_of_looses} fois.`,
         });
 
       return embed;
@@ -62,9 +72,9 @@ export async function ListAll(msg: Message, author: User) {
 
     collector.on('collect', (interaction) => {
       if (interaction.customId === 'previous') {
-        i = i > 0 ? i - 1 : res.length - 1;
+        i = i > 0 ? i - 1 : users.length - 1;
       } else if (interaction.customId === 'next') {
-        i = i < res.length - 1 ? i + 1 : 0;
+        i = i < users.length - 1 ? i + 1 : 0;
       }
 
       interaction.update({
