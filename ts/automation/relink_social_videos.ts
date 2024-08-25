@@ -1,4 +1,4 @@
-async function RelinkSocialVideos(msg) {
+export async function RelinkSocialVideos(msg: string) {
   const twitterReg = [/^https?:\/\/x\.com/, /^https?:\/\/twitter\.com/];
   const tiktokReg = /^https?:\/\/(www\.)?tiktok\.com/;
   const vmTiktokReg = /^https?:\/\/vm.tiktok\.com/;
@@ -22,7 +22,10 @@ async function RelinkSocialVideos(msg) {
     return newMsg;
   } else if (vmTiktokReg.test(msg)) {
     const data = await followRedirect(msg);
-    const index = data.match(/[?]/).index;
+    if (!data) return;
+    const match = data.match(/[?]/);
+    if (!match) return;
+    const index = match.index;
     let newData = data.slice(0, index);
 
     if (tiktokReg.test(newData)) {
@@ -32,7 +35,7 @@ async function RelinkSocialVideos(msg) {
   }
 }
 
-async function followRedirect(url) {
+async function followRedirect(url: string) {
   const response = await fetch(url, { redirect: 'manual' });
   const location = response.headers.get('location');
 
@@ -43,7 +46,3 @@ async function followRedirect(url) {
 
   return location;
 }
-
-module.exports = {
-  RelinkSocialVideos,
-};

@@ -1,4 +1,4 @@
-async function AntiCoubeh(msg) {
+export async function AntiCoubeh(msg: string) {
   const coubehReg = /\bcoubeh(?=\s|$)/i;
   const ketteReg = /\b(kette|quette|quete|kete)(?=\s|$)/i;
   const feurReg = /\bfeur(?=\s|$)/i;
@@ -11,7 +11,3 @@ async function AntiCoubeh(msg) {
     return 'Tu dis "feur" à qui tocard ?';
   }
 }
-
-module.exports = {
-  AntiCoubeh,
-};

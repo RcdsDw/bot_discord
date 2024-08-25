@@ -1,37 +1,39 @@
-const { bot } = require('./lib/bot.js');
-const { userMention } = require('discord.js');
-const moment = require('moment');
+import { bot } from './lib/bot';
+import { Guild, Message, userMention } from 'discord.js';
+import moment from 'moment';
 
 // Reply
-const { Coubeh } = require('./js/reply/coubeh.js');
-const { AntiCoubeh } = require('./js/reply/anti_coubeh.js');
+import { Coubeh } from './ts/reply/coubeh';
+import { AntiCoubeh } from './ts/reply/anti_coubeh';
 // Automation
-const {
-  RelinkSocialVideos,
-} = require('./js/automation/relink_social_videos.js');
-const { CheckPresence } = require('./js/automation/check_presence.js');
-const { AddLoose, CountLooses } = require('./js/automation/looses.js');
+import { RelinkSocialVideos } from './ts/automation/relink_social_videos';
+import { CheckPresence } from './ts/automation/check_presence';
+import { AddLoose, CountLooses } from './ts/automation/looses';
 // Users
-const { ListAll } = require('./js/users/list_all.js');
-const { DeleteDB } = require('./js/users/delete_db.js');
+import { ListAll } from './ts/users/list_all';
 
-trashs = require('./datas/trashs.json');
-compliments = require('./datas/compliments.json');
-karyan = require('./datas/karyan.json');
+import trashs from './datas/trashs.json';
+import compliments from './datas/compliments.json';
+import ka from './datas/ka.json';
+import ryan from './datas/ryan.json';
 
-require('dotenv').config();
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 moment.locale('fr');
 
 bot
   .login(process.env.TOKEN_BOT)
   .then(() => {
-    console.log('Logged in as', bot.user.tag);
+    if (bot.user) {
+      console.log('Logged in as', bot.user.tag);
+    }
   })
-  .catch((err) => {
+  .catch((err: Error) => {
     console.error('Failed to login:', err);
   });
 
-bot.on('messageCreate', async (msg) => {
+bot.on('messageCreate', async (msg: Message) => {
   const authorId = msg.author.id;
   const author = msg.author;
   const guild = msg.guild;
@@ -41,19 +43,11 @@ bot.on('messageCreate', async (msg) => {
   const listVIP = ['judgeobito', 'cocacolack'];
 
   //*---------------------------------------*
-  // Supprimer de la DB
-  //*---------------------------------------*
-
-  if (content === '!DDB') {
-    DeleteDB(msg, author);
-  }
-
-  //*---------------------------------------*
   // Lister les utilisateurs
   //*---------------------------------------*
 
   if (content === '!LI') {
-    ListAll(author, msg);
+    ListAll(msg, author);
   }
 
   //*---------------------------------------*
@@ -90,13 +84,12 @@ bot.on('messageCreate', async (msg) => {
   //*---------------------------------------*
 
   if (author.username === 'karyan') {
-    const number = Math.floor(Math.random() * 20);
+    const number = Math.floor(Math.random() * 30);
 
     if (number === 3) {
-      const reply = karyan[Math.floor(Math.random() * karyan.length)];
+      const reply = `${ka[Math.floor(Math.random() * ka.length)]} ${ryan[Math.floor(Math.random() * ryan.length)]}`;
       const replyMessage = await msg.reply({
         content: reply,
-        fetchReply: true,
       });
       replyMessage.react('🍔');
       replyMessage.react('🍟');
@@ -109,15 +102,20 @@ bot.on('messageCreate', async (msg) => {
   // Check if is a reply
   //*---------------------------------------*
 
-  let referencedMessage;
+  let referencedMessage: Message<boolean> | undefined;
 
   if (msg.reference) {
-    referencedMessage = await channel.messages.fetch(msg.reference.messageId);
+    referencedMessage = await channel.messages.fetch(
+      msg.reference.messageId as string,
+    );
   }
 
   if (
-    ((msg.reference && referencedMessage.author.id === bot.user.id) ||
-      msg.mentions.has(bot.user)) &&
+    ((bot.user &&
+      msg.reference &&
+      referencedMessage &&
+      referencedMessage.author.id === bot.user.id) ||
+      (bot.user && msg.mentions.has(bot.user))) &&
     !author.bot
   ) {
     if (author.username === 'judgeobito') {
@@ -154,6 +152,7 @@ bot.on('messageCreate', async (msg) => {
 
   if (
     (msg.reference &&
+      referencedMessage &&
       listVIP.some((vip) => referencedMessage.author.username === vip)) ||
     listVIP.some((vip) =>
       msg.mentions.users.some((user) => user.username === vip),
@@ -172,11 +171,15 @@ bot.on('messageCreate', async (msg) => {
 
   const coubehRes = await Coubeh(content);
   if (coubehRes) {
-    await AddLoose(msg.author.id).then(async () => {
-      await CountLooses(msg.author.id).then(async (count) => {
-        msg.reply(coubehRes + `\n ${count} - 0, bouffon.`);
+    await AddLoose(msg.author.id)
+      .then(async () => {
+        await CountLooses(msg.author.id).then(async (count) => {
+          msg.reply(coubehRes + `\n ${count} - 0, bouffon.`);
+        });
+      })
+      .catch(() => {
+        msg.reply(coubehRes);
       });
-    });
     return;
   }
 
@@ -187,8 +190,8 @@ bot.on('messageCreate', async (msg) => {
   if (
     msg.mentions.users.some((user) => user.username === 'judgeobito') &&
     CheckPresence(
-      msg.mentions.users.find((user) => user.username === 'judgeobito').id,
-      guild,
+      msg.mentions.users.find((user) => user.username === 'judgeobito')!.id,
+      guild as Guild,
     )
   ) {
     msg.reply(

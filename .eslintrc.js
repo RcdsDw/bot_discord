@@ -20,7 +20,7 @@ module.exports = {
     'build/',
     'dist/',
     'lib/',
-    'index.js',
-    'deploy-commands.js',
+    'index.ts',
+    'deploy-commands.ts',
   ],
 };

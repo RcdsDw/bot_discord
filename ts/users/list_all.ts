@@ -1,38 +1,48 @@
-const {
+import {
   ButtonStyle,
   ActionRowBuilder,
   ButtonBuilder,
   EmbedBuilder,
-} = require('discord.js');
-const db = require('../../lib/db.js');
-// const { bot } = require('../../lib/bot.js');
+  Message,
+  User,
+} from 'discord.js';
+import { DiscordUser } from '../../lib/models/users';
+import { DiscordGuild } from '../../lib/models/guilds';
 
-async function ListAll(params, msg) {
+export async function ListAll(msg: Message, author: User) {
+  const guildId = msg.guildId;
+
+  if (!guildId) {
+    msg.reply('Impossible de récupérer la guilde.');
+    return;
+  }
+
   try {
-    let res = await db.query('SELECT * FROM users');
-    res = res.rows;
+    const guild = await DiscordGuild.findByPk(guildId, {
+      include: DiscordUser,
+    });
 
-    if (res.length === 0) {
-      msg.reply('La liste est vide.');
+    if (!guild || !guild.discordUsers || guild.discordUsers.length === 0) {
+      msg.reply('La liste est vide pour cette guilde.');
       return;
     }
 
+    const users = guild.discordUsers;
     let i = 0;
 
-    const updateUserEmbed = (i) => {
-      const user = res[i];
+    const updateUserEmbed = (i: number) => {
+      const user = users[i];
       const embed = new EmbedBuilder()
         .setTitle(user.global_name)
         .setImage(user.avatar)
         .setFooter({
-          text: `Utilisateur ${i + 1} sur ${res.length} \n S'est fait avoir ${user.number_of_looses} fois.`,
-          // iconURL: bot.user.displayAvatarURL(),
+          text: `Utilisateur ${i + 1} sur ${users.length} \n S'est fait avoir ${user.number_of_looses} fois.`,
         });
 
       return embed;
     };
 
-    const row = new ActionRowBuilder().addComponents(
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()
         .setCustomId('previous')
         .setLabel('<')
@@ -48,10 +58,10 @@ async function ListAll(params, msg) {
       components: [row],
     });
 
-    const filter = (interaction) => {
+    const filter = (interaction: any) => {
       return (
         ['previous', 'next'].includes(interaction.customId) &&
-        interaction.user.id === params.id
+        interaction.user.id === author.id
       );
     };
 
@@ -62,9 +72,9 @@ async function ListAll(params, msg) {
 
     collector.on('collect', (interaction) => {
       if (interaction.customId === 'previous') {
-        i = i > 0 ? i - 1 : res.length - 1;
+        i = i > 0 ? i - 1 : users.length - 1;
       } else if (interaction.customId === 'next') {
-        i = i < res.length - 1 ? i + 1 : 0;
+        i = i < users.length - 1 ? i + 1 : 0;
       }
 
       interaction.update({
@@ -74,7 +84,7 @@ async function ListAll(params, msg) {
     });
 
     collector.on('end', () => {
-      const disabledRow = new ActionRowBuilder().addComponents(
+      const disabledRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
         new ButtonBuilder()
           .setCustomId('previous')
           .setLabel('<')
@@ -94,7 +104,3 @@ async function ListAll(params, msg) {
     msg.reply('La liste ne peut pas être récupérée.');
   }
 }
-
-module.exports = {
-  ListAll,
-};
