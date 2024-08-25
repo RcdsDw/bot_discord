@@ -175,10 +175,12 @@ bot.on('messageCreate', async (msg: Message) => {
       .then(async () => {
         await CountLooses(msg.author.id).then(async (count) => {
           msg.reply(coubehRes + `\n ${count} - 0, bouffon.`);
+          return;
         });
       })
       .catch(() => {
         msg.reply(coubehRes);
+        return;
       });
     return;
   }
