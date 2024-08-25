@@ -11,6 +11,7 @@ import { Command } from './interfaces/interfaces';
 
 import { connectDb } from './db';
 import { DiscordUser } from './models/users';
+import { DiscordGuild } from './models/guilds';
 
 declare module 'discord.js' {
   interface Client {
@@ -32,20 +33,32 @@ bot.commands = getCommands();
 
 bot.on('ready', async () => {
   try {
-    await connectDb(); // Connecter à la base de données avant de continuer
+    await connectDb();
+    console.log('Connecter à la base de données avant de continuer');
 
     for (const guild of bot.guilds.cache.values()) {
+      console.log(`Guilde ${guild.name} trouvée`);
       if (!guild) {
         console.log('Guild not found');
         return;
       }
 
+      const [discordGuild, guildCreated] = await DiscordGuild.findOrCreate({
+        where: { guild_id: guild.id },
+        defaults: {
+          name: guild.name,
+          avatar:
+            guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png',
+        },
+      });
+
       const members = await guild.members.fetch();
       for (const member of members.values()) {
+        console.log(`Membre ${member.user.username} trouvé`);
         if (member.user.bot) continue;
 
         const [user, created] = await DiscordUser.findOrCreate({
-          where: { discord_id: member.user.id },
+          where: { user_id: member.user.id },
           defaults: {
             global_name:
               member.nickname || member.user.globalName || member.user.username,
@@ -57,7 +70,6 @@ bot.on('ready', async () => {
         });
 
         if (!created) {
-          // Update existing user data if necessary
           await user.update({
             global_name:
               member.nickname || member.user.globalName || member.user.username,
@@ -66,9 +78,20 @@ bot.on('ready', async () => {
               'https://cdn.discordapp.com/embed/avatars/0.png',
           });
         }
+
+        await user.$add('discordGuilds', discordGuild.id);
+      }
+
+      if (!guildCreated) {
+        await discordGuild.update({
+          name: guild.name,
+          avatar:
+            guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png',
+        });
       }
     }
-    console.log('Tous les membres ont été traités.');
+
+    console.log('Tous les membres ont été traités et associés aux guildes.');
   } catch (error) {
     console.error('Error while connecting to the database:', error);
   }

@@ -7,9 +7,7 @@ import {
 } from 'sequelize-typescript';
 import { DiscordUser } from './users';
 
-@Table({
-  tableName: 'guilds',
-})
+@Table
 export class DiscordGuild extends Model {
   @Column({
     type: DataType.STRING,

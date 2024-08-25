@@ -1,5 +1,8 @@
 import { Sequelize } from 'sequelize-typescript';
 import * as dotenv from 'dotenv';
+import { DiscordGuild } from './models/guilds';
+import { DiscordUser } from './models/users';
+
 dotenv.config();
 
 const dbUrl = process.env.DATABASE_URL;
@@ -9,7 +12,7 @@ if (!dbUrl) {
 }
 
 export const sequelize = new Sequelize(dbUrl, {
-  models: [__dirname + './models/*.ts'],
+  models: [DiscordGuild, DiscordUser],
 });
 
 export const connectDb = async () => {

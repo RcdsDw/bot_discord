@@ -7,15 +7,13 @@ import {
 } from 'sequelize-typescript';
 import { DiscordGuild } from './guilds';
 
-@Table({
-  tableName: 'users',
-})
+@Table
 export class DiscordUser extends Model {
   @Column({
     type: DataType.STRING,
     primaryKey: true,
   })
-  discord_id!: string;
+  user_id!: string;
 
   @Column(DataType.STRING)
   global_name!: string;
