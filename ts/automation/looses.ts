@@ -5,7 +5,7 @@ export async function AddLoose(id: string) {
   await connectDb();
 
   try {
-    const user = await DiscordUser.findOne({
+    const user: DiscordUser | null = await DiscordUser.findOne({
       where: {
         user_id: id,
       },
@@ -24,7 +24,7 @@ export async function CountLooses(id: string) {
   await connectDb();
 
   try {
-    const res = await DiscordUser.findOne({
+    const res: DiscordUser | null = await DiscordUser.findOne({
       where: {
         user_id: id,
       },
