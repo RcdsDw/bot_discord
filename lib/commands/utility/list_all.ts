@@ -7,13 +7,10 @@ export const data = new SlashCommandBuilder()
   .setDescription(
     '!LI - Liste les utilisateurs enregistrés dans la base de données.',
   );
-// .addUserOption((option) =>
-//   option.setName('user').setDescription('Utilisateur à ajouter.'),
-// );
 
 export async function execute(interaction: CommandInteraction) {
   try {
-    await ListAll(interaction as any, interaction.user as User); // Ajoute 'await' si ListAll est une fonction asynchrone
+    await ListAll(interaction as any, interaction.user as User);
   } catch (error) {
     console.error('Error executing command:', error);
     await interaction.reply(
