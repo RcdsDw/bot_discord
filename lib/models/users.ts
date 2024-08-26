@@ -27,6 +27,6 @@ export class DiscordUser extends Model {
   })
   number_of_looses!: number;
 
-  @BelongsToMany(() => DiscordGuild, 'guild_user', 'user_id', 'guild_id')
+  @BelongsToMany(() => DiscordGuild, 'DiscordGuildUser', 'user_id', 'guild_id')
   discordGuilds!: DiscordGuild[];
 }

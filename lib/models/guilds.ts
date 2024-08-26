@@ -21,6 +21,6 @@ export class DiscordGuild extends Model {
   @Column(DataType.STRING)
   avatar!: string;
 
-  @BelongsToMany(() => DiscordUser, 'guild_user', 'guild_id', 'user_id')
+  @BelongsToMany(() => DiscordUser, 'DiscordGuildUser', 'guild_id', 'user_id')
   discordUsers!: DiscordUser[];
 }

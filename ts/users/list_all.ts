@@ -23,6 +23,9 @@ export async function ListAll(msg: Message, author: User) {
     });
 
     console.log(guild);
+    if (guild) {
+      console.log(guild.discordUsers);
+    }
 
     if (!guild || !guild.discordUsers || guild.discordUsers.length === 0) {
       msg.reply('La liste est vide pour cette guilde.');

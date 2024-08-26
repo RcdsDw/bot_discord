@@ -79,7 +79,7 @@ bot.on('ready', async () => {
           });
         }
 
-        await user.$add('discordGuilds', discordGuild.id);
+        await user.$add('discordGuilds', discordGuild);
       }
 
       if (!guildCreated) {
@@ -90,7 +90,6 @@ bot.on('ready', async () => {
         });
       }
     }
-
     console.log('Tous les membres ont été traités et associés aux guildes.');
   } catch (error) {
     console.error('Error while connecting to the database:', error);
