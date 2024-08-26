@@ -1,6 +1,6 @@
-let list = document.getElementById('coubeh-list');
+// let list = document.getElementById('coubeh-list');
 
-console.log('js prêt.');
+// console.log('js prêt.');
 
 // Utilisation de fetch pour récupérer les données de l'API
 fetch('/api/users')
