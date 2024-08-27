@@ -6,7 +6,7 @@ export async function LeaderBoard(interaction: any, author: any) {
         const embed = new EmbedBuilder()
             .setTitle("http://54.38.191.63:3000/leaderboard")
             .setFooter({
-            text: `Tiens ${author.username} au courant.`,
+                text: `Tiens ${author.username}, régale toi avec le classement des coubehs.`,
             });
 
         return embed;
