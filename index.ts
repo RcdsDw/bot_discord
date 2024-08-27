@@ -15,8 +15,6 @@ import { AntiCoubeh } from './ts/reply/anti_coubeh';
 import { RelinkSocialVideos } from './ts/automation/relink_social_videos';
 import { CheckPresence } from './ts/automation/check_presence';
 import { AddLoose, CountLooses } from './ts/automation/looses';
-// Users
-import { ListAll } from './ts/users/list_all';
 
 import trashs from './datas/trashs.json';
 import compliments from './datas/compliments.json';
@@ -73,14 +71,6 @@ bot.on('messageCreate', async (msg: Message) => {
   const content = msg.content;
 
   const listVIP = ['judgeobito', 'cocacolack'];
-
-  //*---------------------------------------*
-  // Lister les utilisateurs
-  //*---------------------------------------*
-
-  if (content === '!LI') {
-    ListAll(msg, author);
-  }
 
   //*---------------------------------------*
   // Tiktok/Twitter refont url for play vidéo on discord

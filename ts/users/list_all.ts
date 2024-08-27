@@ -32,7 +32,7 @@ export async function ListAll(msg: CommandInteraction, author: User) {
       return;
     }
 
-    const users = guild.discordUsers;
+    const users = guild.discordUsers.sort((a, b) => b.number_of_looses - a.number_of_looses);
     let i = 0;
 
     const updateUserEmbed = (i: number) => {
