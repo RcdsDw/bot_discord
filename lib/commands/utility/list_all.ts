@@ -5,7 +5,7 @@ import { CommandInteraction, User } from 'discord.js';
 export const data = new SlashCommandBuilder()
   .setName('listall')
   .setDescription(
-    '!LI - Liste les utilisateurs enregistrés dans la base de données.',
+    'Liste les utilisateurs enregistrés dans la base de données.',
   );
 
 export async function execute(interaction: CommandInteraction) {
