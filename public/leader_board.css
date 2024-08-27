@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
@@ -11,7 +10,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .container {
@@ -29,11 +27,11 @@ header {
 .logo {
   font-size: 24px;
   font-weight: bold;
-  color: #8b43fb;
+  color: #fbca43;
 }
 
 .send-kudos {
-  background-color: #8b43fb;
+  background-color: #fbca43;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -75,10 +73,10 @@ header {
 .score-value {
   font-size: 36px;
   font-weight: bold;
-  color: #8b43fb;
+  color: #fbca43;
 }
 
-.top-sender {
+#top-sender {
   text-align: center;
 }
 
@@ -92,6 +90,7 @@ header {
 .top-sender-name {
   font-size: 20px;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .right-panel {
@@ -104,7 +103,7 @@ header {
   text-align: left;
 }
 
-.date-range {
+#date-range {
   font-size: 14px;
   color: #888;
 }

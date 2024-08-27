@@ -37,7 +37,7 @@ bot.on('ready', async () => {
     console.log('Connecter à la base de données avant de continuer');
 
     for (const guild of bot.guilds.cache.values()) {
-      console.log(`Guilde ${guild.name} trouvée`);
+      // console.log(`Guilde ${guild.name} trouvée`);
       if (!guild) {
         console.log('Guild not found');
         return;
@@ -54,7 +54,7 @@ bot.on('ready', async () => {
 
       const members = await guild.members.fetch();
       for (const member of members.values()) {
-        console.log(`Membre ${member.user.username} trouvé`);
+        // console.log(`Membre ${member.user.username} trouvé`);
         if (member.user.bot) continue;
 
         const [user, created] = await DiscordUser.findOrCreate({

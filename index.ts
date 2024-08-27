@@ -1,6 +1,12 @@
-import { bot } from './lib/bot';
-import { Guild, Message, userMention } from 'discord.js';
+import express, { Request, Response } from 'express';
+import * as dotenv from 'dotenv';
+import path from 'path';
 import moment from 'moment';
+
+import { Guild, Message, userMention } from 'discord.js';
+
+import { DiscordUser } from './lib/models/users';
+import { bot } from './lib/bot';
 
 // Reply
 import { Coubeh } from './ts/reply/coubeh';
@@ -17,8 +23,12 @@ import compliments from './datas/compliments.json';
 import ka from './datas/ka.json';
 import ryan from './datas/ryan.json';
 
-import * as dotenv from 'dotenv';
 dotenv.config();
+
+const app = express();
+const port = process.env.PORT ?? 3000;
+
+app.use(express.static(path.join(__dirname, './public')));
 
 moment.locale('fr');
 
@@ -32,6 +42,28 @@ bot
   .catch((err: Error) => {
     console.error('Failed to login:', err);
   });
+
+app.get('/leaderboard', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, './index.html'));
+});
+
+app.get('/api/users', async (req: Request, res: Response) => {
+  try {
+    const users = (await DiscordUser.findAll()).sort(
+      (a, b) => b.number_of_looses - a.number_of_looses,
+    );
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: 'Une erreur est survenue lors de la récupération des données.',
+    });
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
+});
 
 bot.on('messageCreate', async (msg: Message) => {
   const authorId = msg.author.id;
