@@ -3,13 +3,13 @@ import {
   ActionRowBuilder,
   ButtonBuilder,
   EmbedBuilder,
-  Message,
   User,
+  CommandInteraction,
 } from 'discord.js';
 import { DiscordUser } from '../../lib/models/users';
 import { DiscordGuild } from '../../lib/models/guilds';
 
-export async function ListAll(msg: Message, author: User) {
+export async function ListAll(msg: CommandInteraction, author: User) {
   const guildId = msg.guildId;
 
   if (!guildId) {
@@ -58,7 +58,7 @@ export async function ListAll(msg: Message, author: User) {
         .setStyle(ButtonStyle.Secondary),
     );
 
-    const embedMessage = await msg.channel.send({
+    const embedMessage = await msg.reply({
       embeds: [updateUserEmbed(i)],
       components: [row],
     });

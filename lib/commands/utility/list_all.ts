@@ -10,7 +10,7 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction: CommandInteraction) {
   try {
-    await ListAll(interaction as any, interaction.user as User);
+    await ListAll(interaction, interaction.user as User);
   } catch (error) {
     console.error('Error executing command:', error);
     await interaction.reply(
