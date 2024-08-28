@@ -6,7 +6,7 @@
 
 ## Technos nécessaires
 
-![Node.js Logo](https://www.vectorlogo.zone/logos/nodejs/nodejs-icon.svg)![Transparent](https://via.placeholder.com/30x30.png)![PostgreSQL Logo](https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg)![Transparent](https://via.placeholder.com/30x30.png)![Docker Logo](https://www.vectorlogo.zone/logos/docker/docker-icon.svg)<br>[Node.js](https://nodejs.org/fr/download/package-manager)![Transparent](https://via.placeholder.com/30x30.png)[PostgreSQL](https://www.postgresql.org/download/)![Transparent](https://via.placeholder.com/30x30.png)[Docker](https://docs.docker.com/engine/install/)
+![Node.js Logo](https://www.vectorlogo.zone/logos/nodejs/nodejs-icon.svg)![]()![PostgreSQL Logo](https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg)![]()![Docker Logo](https://www.vectorlogo.zone/logos/docker/docker-icon.svg)<br>[Node.js](https://nodejs.org/fr/download/package-manager)![]()[PostgreSQL](https://www.postgresql.org/download/)![]()[Docker](https://docs.docker.com/engine/install/)
 
 ## Installation et copie
 
