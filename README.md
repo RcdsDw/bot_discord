@@ -16,18 +16,24 @@
 
 ## Lancement et développement
 
-- Si vos container sont crées : ```npm run start``` sinon : ```docker compose up -d --build```
+- Si les container sont crées : ```npm run start``` sinon : ```docker compose up -d --build```
 
 - ```npm run dev``` (lancera l'index avec nodemon)
 
 ## Configuration et environnement
 
-Créer un fichier .env avec les variables d'environnement suivantes :
+- Pour les variables d'environnement, copier le fichier .env.dist et renommer en .env.
+- Modifier les variables d'environnement suivantes :
 
-- TOKEN_BOT = TOKEN_BOT (Le token du bot)
-- DATABASE_URL = DATABASE_URL (L'url de la base de données)
-- CLIENT_ID = CLIENT_ID (Le client_id du bot)
-- PORT = PORT (Pour le port du web)
+- TOKEN_BOT = "mon-token-de-bot"
+- CLIENT_ID = "mon-client-id"
+
+- DATABASE_USER = "exemple-utilisateur"
+- DATABASE_PASSWORD = "exemple-mot-de-passe"
+- DATABASE_NAME = "exemple-nom-de-la-base"
+- DATABASE_URL = "postgres://exemple-utilisateur:exemple-mot-de-passe@localhost:port-du-web/exemple-nom-de-la-base"
+
+- PORT = "port-du-web"
 
 ## Vérification et indentation
 
@@ -39,9 +45,13 @@ Pour vérifier le code avant de push, lancer la commande :
 
 Pour déployer sur le serveur :
 
-- Configurer en amont vos variables secrètes Github et vos clés SSH
-- Ensuite : ```git push <distant> <branch>``` (le workflow s'en chargera)
+- Configurer en amont les variables secrètes Github et les clés SSH
+- Ensuite : ```git push <distant> <branch>``` (voir le workflow)
 
 Sinon :
 
-- Supprimez le dossier .github
+- Supprimer le dossier .github
+
+## En cas d'ajout de slashs commands
+
+- Lancer le script deploy_commands.ts avec la commande ```npx ts-node deploy_commands.ts```

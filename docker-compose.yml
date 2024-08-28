@@ -3,9 +3,9 @@ services:
     image: postgres:latest
     container_name: bot_database_postgres
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: bot_database
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
     ports:
       - '5444:5432'
     volumes:
@@ -18,7 +18,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://user:password@db:5432/bot_database
+      DATABASE_URL: ${DATABASE_URL}
     ports:
       - '3000:3000'
     volumes:
