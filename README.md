@@ -1,12 +1,14 @@
-<p style="text-align: center;">
-  <h1>Besoins</h1>
-</p>
+<div align="center">
+
+# Kufgu Ponda le bot Discord qui coubeh !
+
+</div>
 
 ## Technos nécessaires
 
-| ![Node.js Logo](https://www.vectorlogo.zone/logos/nodejs/nodejs-icon.svg) | [Node.js](https://nodejs.org/fr/download/package-manager) |
-| ![PostgreSQL Logo](https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg) | [PostgreSQL](https://www.postgresql.org/download/) |
-| ![Docker Logo](https://www.vectorlogo.zone/logos/docker/docker-icon.svg) | [Docker](https://docs.docker.com/engine/install/) |
+| ![Node.js Logo](https://www.vectorlogo.zone/logos/nodejs/nodejs-icon.svg) [Node.js](https://nodejs.org/fr/download/package-manager)
+| ![PostgreSQL Logo](https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg) [PostgreSQL](https://www.postgresql.org/download/)
+| ![Docker Logo](https://www.vectorlogo.zone/logos/docker/docker-icon.svg) [Docker](https://docs.docker.com/engine/install/) |
 
 ## Installation et copie
 
