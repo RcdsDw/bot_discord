@@ -106,6 +106,7 @@ bot.on('messageCreate', async (msg: Message) => {
   //*---------------------------------------*
 
   if (author.username === 'karyan') {
+    const easteregg = Math.floor(Math.random() * 500);
     const number = Math.floor(Math.random() * 30);
 
     if (number === 3) {
@@ -116,6 +117,37 @@ bot.on('messageCreate', async (msg: Message) => {
       replyMessage.react('🍔');
       replyMessage.react('🍟');
       replyMessage.react('🍦');
+      return;
+    }
+
+    if (easteregg === 418) {
+      const reply = 
+        "À Mathis, l’ami précieux\n\n" +
+
+        "Quand le soleil se lève, en ce jour radieux,\n" +
+        "Un éclat de bonheur illumine nos yeux.\n" +
+        "On se souvient des jours où tout semblait parfait,\n" +
+        "Immortelles les heures que l’on partageait.\n\n" +
+
+        "Cher Mathis, ton amitié est un grand trésor,\n" +
+        "Ou le rire et la joie battent tous les records.\n" +
+        "Un pont entre nos cœurs, sans cesse renouvelé,\n" +
+        "Baigne dans les couleurs de nos rêves enchantés.\n\n" +
+
+        "Et si parfois le sort nous jette des défis,\n" +
+        "Haillons-nous ensemble, vers des cieux infinies." 
+      const replyMessage = await msg.reply({
+        content: reply,
+      });
+      replyMessage.react('❤️');
+      replyMessage.react('🧡');
+      replyMessage.react('💛');
+      replyMessage.react('💚');
+      replyMessage.react('💙');
+      replyMessage.react('💜');
+      replyMessage.react('🤎');
+      replyMessage.react('🖤');
+      replyMessage.react('🤍');
       return;
     }
   }
