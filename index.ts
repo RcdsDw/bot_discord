@@ -109,7 +109,7 @@ bot.on('messageCreate', async (msg: Message) => {
     const number = Math.floor(Math.random() * 30);
 
     if (number === 3) {
-      const reply = `${ka[Math.floor(Math.random() * ka.length)]} ${ryan[Math.floor(Math.random() * ryan.length)]}`;
+      const reply = `${ka[Math.floor(Math.random() * ka.length)]} ${ryan[Math.floor(Math.random() * ryan.length)]}.`;
       const replyMessage = await msg.reply({
         content: reply,
       });
