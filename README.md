@@ -54,4 +54,4 @@ Sinon :
 
 ## En cas d'ajout de slashs commands
 
-- Lancer le script deploy_commands.ts avec la commande ```npx ts-node deploy_commands.ts```
+- Lancer le script deploy-commands.ts avec la commande ```npx ts-node deploy-commands.ts```
