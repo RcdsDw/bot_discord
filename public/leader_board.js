@@ -14,8 +14,10 @@ fetch('/api/users')
         user.user_id === '110357707059380224' ||
         user.user_id === '700823009643987014' 
       ) {
-        incoubables.innerHTML += `<img src="${user.avatar}" alt="Avatar de ${user.global_name}" class="avatar">
-                                <div class="top-sender-name">@${user.global_name}</div>`;
+        incoubables.innerHTML += `<li id="incoubable">
+                                    <img src="${user.avatar}" alt="Avatar de ${user.global_name}" class="avatar">
+                                    <div class="top-sender-name">@${user.global_name}</div>
+                                  </li>`;
       } else {
         if (user.number_of_looses > 0) {
           list.innerHTML += `<li class="kudos-item">

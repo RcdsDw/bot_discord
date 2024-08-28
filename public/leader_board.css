@@ -77,7 +77,14 @@ header {
 }
 
 #top-sender {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.incoubable {
+  display: flex;
+  justify-content: center;
 }
 
 .top-sender img {
