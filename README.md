@@ -1,23 +1,26 @@
-## Besoins
+<p style="text-align: center;">
+  <h1>Besoins</h1>
+</p>
 
-- [Node.js](https://nodejs.org/fr/download/package-manager) [![Node.js Logo](https://www.vectorlogo.zone/logos/nodejs/nodejs-icon.svg)](https://nodejs.org/fr/download/package-manager)
-- [PostgreSQL](https://www.postgresql.org/download/) [![PostgreSQL Logo](https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg)](https://www.postgresql.org/download/)
-- [Docker](https://docs.docker.com/engine/install/) [![Docker Logo](https://www.vectorlogo.zone/logos/docker/docker-icon.svg)](https://docs.docker.com/engine/install/)
+## Technos nécessaires
 
-## Installation
+| ![Node.js Logo](https://www.vectorlogo.zone/logos/nodejs/nodejs-icon.svg) | [Node.js](https://nodejs.org/fr/download/package-manager) |
+| ![PostgreSQL Logo](https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg) | [PostgreSQL](https://www.postgresql.org/download/) |
+| ![Docker Logo](https://www.vectorlogo.zone/logos/docker/docker-icon.svg) | [Docker](https://docs.docker.com/engine/install/) |
+
+## Installation et copie
 
 - ```git clone https://github.com/RcdsDw/bot_discord.git```
 
 - ```npm install```
 
-## Lancement
+## Lancement et développement
 
-- npm run start (si vos container sont crées)
-sinon : ```docker compose up -d --build```
+- Si vos container sont crées : ```npm run start``` sinon : ```docker compose up -d --build```
 
-- npm run dev (lancera l'index avec nodemon)
+- ```npm run dev``` (lancera l'index avec nodemon)
 
-## Configuration
+## Configuration et environnement
 
 Créer un fichier .env avec les variables d'environnement suivantes :
 
@@ -26,13 +29,13 @@ Créer un fichier .env avec les variables d'environnement suivantes :
 - CLIENT_ID = CLIENT_ID (Le client_id du bot)
 - PORT = PORT (Pour le port du web)
 
-## Vérification
+## Vérification et indentation
 
 Pour vérifier le code avant de push, lancer la commande :
 
 ```npm run checkall```
 
-## Déploiement
+## Déploiement en continu
 
 Pour déployer sur le serveur :
 
@@ -41,4 +44,4 @@ Pour déployer sur le serveur :
 
 Sinon :
 
-Supprimez le dossier .github
+- Supprimez le dossier .github

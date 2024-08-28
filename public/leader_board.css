@@ -82,7 +82,7 @@ header {
   align-items: center;
 }
 
-.incoubable {
+#incoubable {
   display: flex;
   justify-content: center;
 }
