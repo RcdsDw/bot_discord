@@ -70,7 +70,7 @@ bot.on('messageCreate', async (msg: Message) => {
   const channel = msg.channel;
   const content = msg.content;
 
-  const listVIP = ['judgeobito', 'cocacolack'];
+  const listVIP = ['judgeobito', 'cocacolack', 'lilasam'];
 
   //*---------------------------------------*
   // Tiktok/Twitter refont url for play vidéo on discord
@@ -178,7 +178,8 @@ bot.on('messageCreate', async (msg: Message) => {
   if (
     author.bot ||
     author.username === 'judgeobito' ||
-    author.username === 'cocacolack'
+    author.username === 'cocacolack' || 
+    author.username === 'lilasam'
   )
     return;
 
@@ -233,11 +234,8 @@ bot.on('messageCreate', async (msg: Message) => {
     )
   ) {
     msg.reply(
-      "Merci pour votre message. Le maître n'est pas disponible actuellement.\n\n" +
-        "Il est sur l'île d'Apagnan mais il sera bientôt de retour pour coubeh un max avec le VC.\n\n" +
-        'Merci de votre compréhension.\n\n' +
-        'Cordialement,\n' +
-        'Son agent.',
+      "Merci pour votre message. Le maître est actuellement sur l'île d'Apagnan.\n\n" +
+      'Kufgu.',
     );
     return;
   }
