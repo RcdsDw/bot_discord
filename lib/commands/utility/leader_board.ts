@@ -4,9 +4,7 @@ import { CommandInteraction, User } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
   .setName('leaderboard')
-  .setDescription(
-    'Donne le lien du classement des coubehs.',
-  );
+  .setDescription('Donne le lien du classement des coubehs.');
 
 export async function execute(interaction: CommandInteraction) {
   try {

@@ -41,7 +41,7 @@ bot
     console.error('Failed to login:', err);
   });
 
-app.get('/leaderboard', (req: Request, res: Response) => {
+app.get('/', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, './index.html'));
 });
 
@@ -148,11 +148,25 @@ bot.on('messageCreate', async (msg: Message) => {
     } else if (author.username === 'cocacolack') {
       msg.reply("J'accepte et mon coeur reste ouvert.");
     } else {
-      msg.reply(
-        'À qui tu crois parler, ' +
-          trashs[Math.floor(Math.random() * trashs.length)] +
-          ' ?',
-      );
+      if (msg.content.includes('@here')) {
+        msg.reply(
+          'Arrête de here, ' +
+            trashs[Math.floor(Math.random() * trashs.length)] +
+            ' !',
+        );
+      } else if (msg.content.includes('@everyone')) {
+        msg.reply(
+          'Arrête de everyone, ' +
+            trashs[Math.floor(Math.random() * trashs.length)] +
+            ' !',
+        );
+      } else {
+        msg.reply(
+          'À qui tu crois parler, ' +
+            trashs[Math.floor(Math.random() * trashs.length)] +
+            ' ?',
+        );
+      }
     }
     return;
   }

@@ -22,17 +22,14 @@ export async function ListAll(msg: CommandInteraction, author: User) {
       include: DiscordUser,
     });
 
-    // console.log(guild);
-    // if (guild) {
-    //   console.log(guild.discordUsers);
-    // }
-
     if (!guild || !guild.discordUsers || guild.discordUsers.length === 0) {
       msg.reply('La liste est vide pour cette guilde.');
       return;
     }
 
-    const users = guild.discordUsers.sort((a, b) => b.number_of_looses - a.number_of_looses);
+    const users = guild.discordUsers.sort(
+      (a, b) => b.number_of_looses - a.number_of_looses,
+    );
     let i = 0;
 
     const updateUserEmbed = (i: number) => {
