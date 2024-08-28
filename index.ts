@@ -122,7 +122,7 @@ bot.on('messageCreate', async (msg: Message) => {
 
     if (easteregg === 418) {
       const reply = 
-        "À Mathis, l’ami précieux\n\n" +
+        "# À Mathis, l’ami précieux\n\n" +
 
         "Quand le soleil se lève, en ce jour radieux,\n" +
         "Un éclat de bonheur illumine nos yeux.\n" +
