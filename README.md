@@ -6,9 +6,7 @@
 
 ## Technos nécessaires
 
-| ![Node.js Logo](https://www.vectorlogo.zone/logos/nodejs/nodejs-icon.svg) [Node.js](https://nodejs.org/fr/download/package-manager)
-| ![PostgreSQL Logo](https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg) [PostgreSQL](https://www.postgresql.org/download/)
-| ![Docker Logo](https://www.vectorlogo.zone/logos/docker/docker-icon.svg) [Docker](https://docs.docker.com/engine/install/) |
+| ![Node.js Logo](https://www.vectorlogo.zone/logos/nodejs/nodejs-icon.svg)<br>[Node.js](https://nodejs.org/fr/download/package-manager) | ![PostgreSQL Logo](https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg)<br>[PostgreSQL](https://www.postgresql.org/download/) | ![Docker Logo](https://www.vectorlogo.zone/logos/docker/docker-icon.svg)<br>[Docker](https://docs.docker.com/engine/install/) |
 
 ## Installation et copie
 
