@@ -183,7 +183,7 @@ bot.on('messageCreate', async (msg: Message) => {
         `${moment().hour() < 19 ? 'Bonjour ' : 'Bonsoir '}` +
           compliments[Math.floor(Math.random() * compliments.length)],
       );
-    } else if (author.username === 'cocacolack' || author.username === 'lilasam') {
+    } else if (author.username === 'cocacolack') {
       msg.reply("J'accepte et mon coeur reste ouvert.");
     } else {
       if (msg.content.includes('@here')) {
