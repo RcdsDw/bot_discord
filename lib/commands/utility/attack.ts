@@ -14,7 +14,19 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction: CommandInteraction) {
   try {
-    const targetUser = interaction.options.get('user')?.user;
+    await Attack(interaction as any);
+  } catch (error) {
+    console.error('Error executing command:', error);
+    await interaction.reply(
+      "Il y a eu une erreur lors de l'exécution de la commande.",
+    );
+  }
+}
+
+/* Function to execute */
+
+async function Attack (interaction: any) {
+  const targetUser = interaction.options.get('user')?.user;
 
     if (!targetUser) {
       await interaction.reply("Tu n'as pas spécifié de personne à attaquer.");
@@ -35,10 +47,4 @@ export async function execute(interaction: CommandInteraction) {
     await interaction.reply(
       `Oh ${userMention(targetUser.id)}, ferme un peu ta gueule ${trashs[Math.floor(Math.random() * trashs.length)]} !`,
     );
-  } catch (error) {
-    console.error('Error executing command:', error);
-    await interaction.reply(
-      "Il y a eu une erreur lors de l'exécution de la commande.",
-    );
-  }
 }

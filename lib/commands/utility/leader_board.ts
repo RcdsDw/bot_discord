@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { LeaderBoard } from '../../../ts/users/leader_board';
-import { CommandInteraction, User } from 'discord.js';
+import { CommandInteraction, EmbedBuilder, User } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
   .setName('leaderboard')
@@ -15,4 +14,21 @@ export async function execute(interaction: CommandInteraction) {
       "Il y a eu une erreur lors de l'exécution de la commande.",
     );
   }
+}
+
+/* Function to execute */
+
+async function LeaderBoard(interaction: any, author: any) {
+  const updateUserEmbed = () => {
+    const embed = new EmbedBuilder()
+      .setTitle('http://bot.rcds-dev.fr')
+      .setFooter({
+        text: `Tiens ${author.username}, régale toi avec le classement des coubehs.`,
+      });
+
+    return embed;
+  };
+  interaction.reply({
+    embeds: [updateUserEmbed()],
+  });
 }
