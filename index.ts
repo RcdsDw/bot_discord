@@ -121,21 +121,18 @@ bot.on('messageCreate', async (msg: Message) => {
     }
 
     if (easteregg === 418) {
-      const reply = 
-        "# À Mathis, l’ami précieux\n\n" +
-
-        "Quand le soleil se lève, en ce jour radieux,\n" +
-        "Un éclat de bonheur illumine nos yeux.\n" +
-        "On se souvient des jours où tout semblait parfait,\n" +
-        "Immortelles les heures que l’on partageait.\n\n" +
-
-        "Cher Mathis, ton amitié est un grand trésor,\n" +
-        "Ou le rire et la joie battent tous les records.\n" +
-        "Un pont entre nos cœurs, sans cesse renouvelé,\n" +
-        "Baigne dans les couleurs de nos rêves enchantés.\n\n" +
-
-        "Et si parfois le sort nous jette des défis,\n" +
-        "Haillons-nous ensemble, vers des cieux infinies." 
+      const reply =
+        '# À Mathis, l’ami précieux\n\n' +
+        'Quand le soleil se lève, en ce jour radieux,\n' +
+        'Un éclat de bonheur illumine nos yeux.\n' +
+        'On se souvient des jours où tout semblait parfait,\n' +
+        'Immortelles les heures que l’on partageait.\n\n' +
+        'Cher Mathis, ton amitié est un grand trésor,\n' +
+        'Ou le rire et la joie battent tous les records.\n' +
+        'Un pont entre nos cœurs, sans cesse renouvelé,\n' +
+        'Baigne dans les couleurs de nos rêves enchantés.\n\n' +
+        'Et si parfois le sort nous jette des défis,\n' +
+        'Haillons-nous ensemble, vers des cieux infinies.';
       const replyMessage = await msg.reply({
         content: reply,
       });
@@ -210,7 +207,7 @@ bot.on('messageCreate', async (msg: Message) => {
   if (
     author.bot ||
     author.username === 'judgeobito' ||
-    author.username === 'cocacolack' || 
+    author.username === 'cocacolack' ||
     author.username === 'lilasam'
   )
     return;
@@ -267,7 +264,7 @@ bot.on('messageCreate', async (msg: Message) => {
   ) {
     msg.reply(
       "Merci pour votre message. Le maître est actuellement sur l'île d'Apagnan.\n\n" +
-      'Kufgu.',
+        'Kufgu.',
     );
     return;
   }

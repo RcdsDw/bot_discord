@@ -10,15 +10,15 @@
 
 ## Installation et copie
 
-- ```git clone https://github.com/RcdsDw/bot_discord.git```
+- `git clone https://github.com/RcdsDw/bot_discord.git`
 
-- ```npm install```
+- `npm install`
 
 ## Lancement et développement
 
-- Si les container sont crées : ```npm run start``` sinon : ```docker compose up -d --build```
+- Si les container sont crées : `npm run start` sinon : `docker compose up -d --build`
 
-- ```npm run dev``` (lancera l'index avec nodemon)
+- `npm run dev` (lancera l'index avec nodemon)
 
 ## Configuration et environnement
 
@@ -39,14 +39,14 @@
 
 Pour vérifier le code avant de push, lancer la commande :
 
-```npm run checkall```
+`npm run checkall`
 
 ## Déploiement en continu
 
 Pour déployer sur le serveur :
 
 - Configurer en amont les variables secrètes Github et les clés SSH
-- Ensuite : ```git push <distant> <branch>``` (voir le workflow)
+- Ensuite : `git push <distant> <branch>` (voir le workflow)
 
 Sinon :
 
@@ -54,4 +54,4 @@ Sinon :
 
 ## En cas d'ajout de slashs commands
 
-- Lancer le script deploy-commands.ts avec la commande ```npx ts-node deploy-commands.ts```
+- Lancer le script deploy-commands.ts avec la commande `npx ts-node deploy-commands.ts`

@@ -70,7 +70,7 @@ bot.on('ready', async () => {
         if (!created) {
           await user.update({
             global_name:
-            member.user.globalName || member.user.username || member.nickname,
+              member.user.globalName || member.user.username || member.nickname,
             avatar:
               member.user.avatarURL() ||
               'https://cdn.discordapp.com/embed/avatars/0.png',
