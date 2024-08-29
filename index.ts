@@ -29,6 +29,7 @@ const port = process.env.PORT;
 app.use(express.static(path.join(__dirname, './public')));
 
 moment.locale('fr');
+export const listVIP = ['246753473587052555', '110357707059380224', '700823009643987014'];
 
 bot
   .login(process.env.TOKEN_BOT)
@@ -70,7 +71,7 @@ bot.on('messageCreate', async (msg: Message) => {
   const channel = msg.channel;
   const content = msg.content;
 
-  const listVIP = ['judgeobito', 'cocacolack', 'lilasam'];
+  // Moi, Ben, Sam
 
   //*---------------------------------------*
   // Tiktok/Twitter refont url for play vidéo on discord
@@ -205,10 +206,8 @@ bot.on('messageCreate', async (msg: Message) => {
   //*---------------------------------------*
 
   if (
-    author.bot ||
-    author.username === 'judgeobito' ||
-    author.username === 'cocacolack' ||
-    author.username === 'lilasam'
+    author.bot || 
+    listVIP.some((vip) => author.id === vip)
   )
     return;
 

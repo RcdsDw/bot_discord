@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, userMention } from 'discord.js';
 import trashs from '../../../datas/trashs.json';
+import { listVIP } from '../../../index';
 
 export const data = new SlashCommandBuilder()
   .setName('attack')
@@ -41,6 +42,11 @@ async function Attack (interaction: any) {
     if (targetUser.id === "246753473587052555") {
       let random = trashs[Math.floor(Math.random() * trashs.length)];
       await interaction.reply(`${userMention(interaction.user.id)} ? Tu crois que je vais attaquer mon maître ? ${random.charAt(0).toUpperCase() + random.slice(1)} !`);
+      return;
+    }
+
+    if (listVIP.some((vip) => targetUser.id === vip)) {
+      await interaction.reply(`${userMention(interaction.user.id)} ? Je vais pas attaquer les VIPs pour toi, ${trashs[Math.floor(Math.random() * trashs.length)]} !`);
       return;
     }
 
