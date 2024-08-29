@@ -103,15 +103,6 @@ bot.on('messageCreate', async (msg: Message) => {
   }
 
   //*---------------------------------------*
-  // Bot react
-  //*---------------------------------------*
-
-  if (author.id === '1276639919707656273') {
-    msg.delete();
-    return;
-  }
-
-  //*---------------------------------------*
   // Me react
   //*---------------------------------------*
 
@@ -195,6 +186,10 @@ bot.on('messageCreate', async (msg: Message) => {
     } else if (author.username === 'cocacolack') {
       msg.reply("J'accepte et mon coeur reste ouvert.");
     } else {
+      if (listVIP.some((vip) => msg.content.includes(vip))) {
+        return;
+      }
+      
       if (msg.content.includes('@here')) {
         msg.reply(
           'Arrête de here, ' +
