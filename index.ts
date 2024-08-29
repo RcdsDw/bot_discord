@@ -187,23 +187,25 @@ bot.on('messageCreate', async (msg: Message) => {
       msg.reply("J'accepte et mon coeur reste ouvert.");
     } else {
       if (msg.content.includes('@here')) {
-        if (listVIP.some((vip) => msg.content.includes(vip))) {
+        if (listVIP.some((vip) => author.id === vip)) {
           return;
+        } else {
+          msg.reply(
+            'Arrête de here, ' +
+              trashs[Math.floor(Math.random() * trashs.length)] +
+              ' !',
+          );
         }
-        msg.reply(
-          'Arrête de here, ' +
-            trashs[Math.floor(Math.random() * trashs.length)] +
-            ' !',
-        );
       } else if (msg.content.includes('@everyone')) {
-        if (listVIP.some((vip) => msg.content.includes(vip))) {
+        if (listVIP.some((vip) => author.id === vip)) {
           return;
+        } else {
+          msg.reply(
+            'Arrête de everyone, ' +
+              trashs[Math.floor(Math.random() * trashs.length)] +
+              ' !',
+          );
         }
-        msg.reply(
-          'Arrête de everyone, ' +
-            trashs[Math.floor(Math.random() * trashs.length)] +
-            ' !',
-        );
       } else {
         msg.reply(
           'À qui tu crois parler, ' +
@@ -232,9 +234,9 @@ bot.on('messageCreate', async (msg: Message) => {
   if (
     (msg.reference &&
       referencedMessage &&
-      listVIP.some((vip) => referencedMessage.author.username === vip)) ||
+      listVIP.some((vip) => referencedMessage.author.id === vip)) ||
     listVIP.some((vip) =>
-      msg.mentions.users.some((user) => user.username === vip),
+      msg.mentions.users.some((user) => user.id === vip),
     )
   ) {
     const antiCoubehRes = await AntiCoubeh(content);
