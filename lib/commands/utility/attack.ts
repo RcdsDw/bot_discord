@@ -46,7 +46,7 @@ async function Attack (interaction: any) {
     }
 
     if (listVIP.some((vip) => targetUser.id === vip)) {
-      await interaction.reply(`${userMention(interaction.user.id)} ? Je vais pas attaquer les VIPs pour toi, ${trashs[Math.floor(Math.random() * trashs.length)]} !`);
+      await interaction.reply(`${userMention(interaction.user.id)} ? Je vais pas attaquer un Incoubable pour toi, ${trashs[Math.floor(Math.random() * trashs.length)]} !`);
       return;
     }
 
