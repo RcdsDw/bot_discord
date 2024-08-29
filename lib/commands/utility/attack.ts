@@ -14,10 +14,8 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction: CommandInteraction) {
   try {
-    // Assurez-vous que l'option utilisateur est correctement typée
     const targetUser = interaction.options.get('user')?.user;
 
-    // Vérifiez si l'utilisateur est lui-même
     if (!targetUser) {
       await interaction.reply("Tu n'as pas spécifié de personne à attaquer.");
       return;
@@ -28,7 +26,12 @@ export async function execute(interaction: CommandInteraction) {
       return;
     }
 
-    // Si tout est correct, attaquer l'utilisateur cible
+    if (targetUser.id === "246753473587052555") {
+      let random = trashs[Math.floor(Math.random() * trashs.length)];
+      await interaction.reply(`${userMention(interaction.user.id)} ? Tu crois que je vais attaquer mon maître ? ${random.charAt(0).toUpperCase() + random.slice(1)} !`);
+      return;
+    }
+
     await interaction.reply(
       `Oh ${userMention(targetUser.id)}, ferme un peu ta gueule ${trashs[Math.floor(Math.random() * trashs.length)]} !`,
     );
