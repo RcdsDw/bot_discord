@@ -106,9 +106,9 @@ bot.on('messageCreate', async (msg: Message) => {
   // Me react
   //*---------------------------------------*
 
-  // if (author.username === 'judgeobito') {
-  //   msg.react('🐼');
-  // }
+  if (author.username === 'judgeobito') {
+    msg.react('🐼');
+  }
   
   //*---------------------------------------*
   // Mathis react
