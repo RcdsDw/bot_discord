@@ -35,19 +35,32 @@ async function Attack (interaction: any) {
     }
 
     if (targetUser.id === interaction.user.id) {
-      await interaction.reply('Tu ne peux pas te faire attaquer toi-même.');
+      await interaction.reply("Tu ne peux pas t'attaquer toi-même.");
       return;
     }
 
     if (targetUser.id === "246753473587052555") {
-      let random = trashs[Math.floor(Math.random() * trashs.length)];
-      await interaction.reply(`${userMention(interaction.user.id)} ? Tu crois que je vais attaquer mon maître ? ${random.charAt(0).toUpperCase() + random.slice(1)} !`);
-      return;
+      if (listVIP.some((vip) => interaction.user.id === vip)) {
+        await interaction.reply("Tu voulais attaquer le maître ? Gourmand, je peux pas te laisser faire ça désolé.");
+        return;
+      } else {
+        let random = trashs[Math.floor(Math.random() * trashs.length)];
+        await interaction.reply(`${userMention(interaction.user.id)} ? Tu crois que je vais attaquer mon maître ? ${random.charAt(0).toUpperCase() + random.slice(1)} !`);
+        return;
+      }
     }
 
     if (listVIP.some((vip) => targetUser.id === vip)) {
-      await interaction.reply(`${userMention(interaction.user.id)} ? Je vais pas attaquer un Incoubable pour toi, ${trashs[Math.floor(Math.random() * trashs.length)]} !`);
-      return;
+      if (interaction.user.id === "246753473587052555") {
+        await interaction.reply("Soyez raisonné maître, je ne peux pas attaquer un Incoubable.");
+        return;
+      } else if (listVIP.some((vip) => interaction.user.id === vip)) {
+        await interaction.reply("Tu t'attaques à ta propre race mon frère ?");
+        return;
+      } else {
+        await interaction.reply(`${userMention(interaction.user.id)} ? Je vais pas attaquer un Incoubable pour toi, ${trashs[Math.floor(Math.random() * trashs.length)]} !`);
+        return;
+      }
     }
 
     await interaction.reply(
