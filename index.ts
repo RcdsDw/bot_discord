@@ -183,20 +183,22 @@ bot.on('messageCreate', async (msg: Message) => {
         `${moment().hour() < 19 ? 'Bonjour ' : 'Bonsoir '}` +
           compliments[Math.floor(Math.random() * compliments.length)],
       );
-    } else if (author.username === 'cocacolack') {
+    } else if (author.username === 'cocacolack' || author.username === 'lilasam') {
       msg.reply("J'accepte et mon coeur reste ouvert.");
     } else {
-      if (listVIP.some((vip) => msg.content.includes(vip))) {
-        return;
-      }
-      
       if (msg.content.includes('@here')) {
+        if (listVIP.some((vip) => msg.content.includes(vip))) {
+          return;
+        }
         msg.reply(
           'Arrête de here, ' +
             trashs[Math.floor(Math.random() * trashs.length)] +
             ' !',
         );
       } else if (msg.content.includes('@everyone')) {
+        if (listVIP.some((vip) => msg.content.includes(vip))) {
+          return;
+        }
         msg.reply(
           'Arrête de everyone, ' +
             trashs[Math.floor(Math.random() * trashs.length)] +
