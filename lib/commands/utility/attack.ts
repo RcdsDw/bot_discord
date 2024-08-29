@@ -34,8 +34,26 @@ async function Attack (interaction: any) {
       return;
     }
 
+    if (targetUser.username === "Kufgu Ponda") {
+      if (listVIP.some((vip) => interaction.user.id === vip)) {
+        await interaction.reply("Tu vas pas m'attaquer quand même, gros gouwmand !");
+        return;
+      }
+      await interaction.reply(`Tu veux attaquer qui ${trashs[Math.floor(Math.random() * trashs.length)]} ?`);
+      return;
+    }
+
+    if (targetUser.bot) {
+      await interaction.reply("Tu ne peux pas attaquer un bot.");
+      return;
+    }
+
     if (targetUser.id === interaction.user.id) {
-      await interaction.reply("Tu ne peux pas t'attaquer toi-même.");
+      if (listVIP.some((vip) => interaction.user.id === vip)) {
+        await interaction.reply("Tu ne peux pas t'attaquer toi-même.");
+        return;
+      }
+      await interaction.reply(`Bouffon tu t'attaques tout seul !`);
       return;
     }
 
