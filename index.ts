@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 import path from 'path';
 import moment from 'moment';
 
-import { Guild, Message, userMention } from 'discord.js';
+import { ChannelType, Guild, Message, userMention } from 'discord.js';
 
 import { DiscordUser } from './lib/models/users';
 import { bot } from './lib/bot';
@@ -82,16 +82,26 @@ setInterval(async () => {
     for (const member of members.values()) {
       if (member.user.username === "judgeobito") {
         const target = member.user;
+        let isInVoiceChannel = false;
+
         for (const channel of channels.values()) {
-          if (channel?.members.has(target.id)) {
-            target.send("Sors du coubeh !");
-            return;
+          if (channel?.type === ChannelType.GuildVoice && channel.members.has(target.id)) {
+            isInVoiceChannel = true;
+            break;
+          }
+        }
+
+        if (isInVoiceChannel) {
+          try {
+            await target.send("Sors du coubeh !");
+          } catch (error) {
+            console.error("Impossible d'envoyer un message privé à l'utilisateur:", error);
           }
         }
       }
     }
   }
-}, 1000 * 30);
+}, 1000 * 5);
 
 bot.on('messageCreate', async (msg: Message) => {
   const authorId = msg.author.id;
