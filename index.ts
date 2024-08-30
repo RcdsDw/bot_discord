@@ -85,18 +85,31 @@ setInterval(async () => {
         let isInVoiceChannel = false;
 
         for (const channel of channels.values()) {
-          if (channel?.type === ChannelType.GuildVoice && channel.members.has(target.id)) {
+          if (channel?.type === 2 && channel.members.has(target.id)) {
             isInVoiceChannel = true;
             break;
           }
         }
 
+        const logChannel = channels.find(c => c && c.id === "1269071240568635514");
+
         if (isInVoiceChannel) {
           try {
             await target.send("Sors du coubeh !");
+            isInVoiceChannel = false;
           } catch (error) {
             console.error("Impossible d'envoyer un message privé à l'utilisateur:", error);
           }
+
+          if (logChannel && logChannel.isTextBased()) {
+            logChannel.send('Fait !');
+          }
+          return;
+        } else {
+          if (logChannel && logChannel.isTextBased()) {
+            logChannel.send('Aie !');
+          }
+          return;
         }
       }
     }
