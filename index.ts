@@ -81,11 +81,11 @@ setInterval(async () => {
   
     for (const member of members.values()) {
       if (member.user.username === "judgeobito") {
-        const target = member.user;
+        const target = members.find(m => m.user.username === "judgeobito");
         let isInVoiceChannel = false;
 
         for (const channel of channels.values()) {
-          if (channel?.type === ChannelType.GuildVoice && channel.members.has(target.id)) {
+          if (target && channel?.type === ChannelType.GuildVoice && channel.members.has(target.id)) {
             isInVoiceChannel = true;
             break;
           }
@@ -93,7 +93,7 @@ setInterval(async () => {
 
         const logChannel = channels.find(c => c && c.id === "1269071240568635514");
 
-        if (isInVoiceChannel) {
+        if (isInVoiceChannel && target) {
           try {
             await target.send("Sors du coubeh !");
             isInVoiceChannel = false;
