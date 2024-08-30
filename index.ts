@@ -85,7 +85,7 @@ setInterval(async () => {
         let isInVoiceChannel = false;
 
         for (const channel of channels.values()) {
-          if (channel?.type === 2 && channel.members.has(target.id)) {
+          if (channel?.type === ChannelType.GuildVoice && channel.members.has(target.id)) {
             isInVoiceChannel = true;
             break;
           }
