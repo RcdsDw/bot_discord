@@ -28,10 +28,14 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT;
 
-app.use(express.static(path.join(__dirname, './public')));
-
 moment.locale('fr');
 export const listVIP = ['246753473587052555', '110357707059380224', '700823009643987014'];
+
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-EXPRESS-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+app.use(express.static(path.join(__dirname, './public')));
 
 bot
   .login(process.env.TOKEN_BOT)
@@ -65,6 +69,28 @@ app.get('/api/users', async (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
+
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+setInterval(async () => {
+  const guild = bot.guilds.cache.get('1169725987454464051');
+
+  if (guild) {
+    const members = await guild.members.fetch();
+    const channels = await guild.channels.fetch();
+  
+    for (const member of members.values()) {
+      if (member.user.username === "karyan") {
+        const target = member.user;
+        for (const channel of channels.values()) {
+          if (channel?.members.has(target.id)) {
+            target.send("Sors du vc mon p'tit Karyan c'est l'heure du wc !");
+          }
+        }
+      }
+    }
+  }
+}, 1000 * 60 * 5);
 
 bot.on('messageCreate', async (msg: Message) => {
   const authorId = msg.author.id;
