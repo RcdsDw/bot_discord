@@ -72,49 +72,49 @@ app.listen(port, () => {
 
 // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-setInterval(async () => {
-  const guild = bot.guilds.cache.get('1169725987454464051');
+// setInterval(async () => {
+//   const guild = bot.guilds.cache.get('1169725987454464051');
 
-  if (guild) {
-    const members = await guild.members.fetch();
-    const channels = await guild.channels.fetch();
+//   if (guild) {
+//     const members = await guild.members.fetch();
+//     const channels = await guild.channels.fetch();
   
-    for (const member of members.values()) {
-      if (member.user.username === "judgeobito") {
-        const target = members.find(m => m.user.username === "judgeobito");
-        let isInVoiceChannel = false;
+//     for (const member of members.values()) {
+//       if (member.user.username === "judgeobito") {
+//         const target = members.find(m => m.user.username === "judgeobito");
+//         let isInVoiceChannel = false;
 
-        for (const channel of channels.values()) {
-          if (target && channel?.type === ChannelType.GuildVoice && channel.members.has(target.id)) {
-            isInVoiceChannel = true;
-            break;
-          }
-        }
+//         for (const channel of channels.values()) {
+//           if (target && channel?.type === ChannelType.GuildVoice && channel.members.has(target.id)) {
+//             isInVoiceChannel = true;
+//             break;
+//           }
+//         }
 
-        const logChannel = channels.find(c => c && c.id === "1269071240568635514");
+//         const logChannel = channels.find(c => c && c.id === "1269071240568635514");
 
-        if (isInVoiceChannel && target) {
-          try {
-            await target.send("Sors du coubeh !");
-            isInVoiceChannel = false;
-          } catch (error) {
-            console.error("Impossible d'envoyer un message privé à l'utilisateur:", error);
-          }
+//         if (isInVoiceChannel && target) {
+//           try {
+//             await target.send("Sors du coubeh !");
+//             isInVoiceChannel = false;
+//           } catch (error) {
+//             console.error("Impossible d'envoyer un message privé à l'utilisateur:", error);
+//           }
 
-          if (logChannel && logChannel.isTextBased()) {
-            logChannel.send('Fait !');
-          }
-          return;
-        } else {
-          if (logChannel && logChannel.isTextBased()) {
-            logChannel.send('Aie !');
-          }
-          return;
-        }
-      }
-    }
-  }
-}, 1000 * 5);
+//           if (logChannel && logChannel.isTextBased()) {
+//             logChannel.send('Fait !');
+//           }
+//           return;
+//         } else {
+//           if (logChannel && logChannel.isTextBased()) {
+//             logChannel.send('Aie !');
+//           }
+//           return;
+//         }
+//       }
+//     }
+//   }
+// }, 1000 * 5);
 
 bot.on('messageCreate', async (msg: Message) => {
   const authorId = msg.author.id;
