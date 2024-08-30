@@ -80,7 +80,7 @@ setInterval(async () => {
     const channels = await guild.channels.fetch();
   
     for (const member of members.values()) {
-      if (member.user.username === "karyan") {
+      if (member.user.username === "judgeobito") {
         const target = member.user;
         for (const channel of channels.values()) {
           if (channel?.members.has(target.id)) {
