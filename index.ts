@@ -17,9 +17,11 @@ import { CheckPresence } from './ts/automation/check_presence';
 import { AddLoose, CountLooses } from './ts/automation/looses';
 
 import trashs from './datas/trashs.json';
+import dirgeant from './datas/dirigeant.json';
 import compliments from './datas/compliments.json';
 import ka from './datas/ka.json';
 import ryan from './datas/ryan.json';
+import parler from './datas/parler.json';
 
 dotenv.config();
 
@@ -181,6 +183,8 @@ bot.on('messageCreate', async (msg: Message) => {
     if (author.username === 'judgeobito') {
       msg.reply(
         `${moment().hour() < 19 ? 'Bonjour ' : 'Bonsoir '}` +
+          dirgeant[Math.floor(Math.random() * dirgeant.length)] +
+          ", " +
           compliments[Math.floor(Math.random() * compliments.length)],
       );
     } else if (author.username === 'cocacolack') {
@@ -208,7 +212,7 @@ bot.on('messageCreate', async (msg: Message) => {
         }
       } else {
         msg.reply(
-          'À qui tu crois parler, ' +
+          `${parler[Math.floor(Math.random() * parler.length)]}, ` +
             trashs[Math.floor(Math.random() * trashs.length)] +
             ' ?',
         );
