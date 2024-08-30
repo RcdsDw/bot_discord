@@ -84,13 +84,14 @@ setInterval(async () => {
         const target = member.user;
         for (const channel of channels.values()) {
           if (channel?.members.has(target.id)) {
-            target.send("Sors du vc mon p'tit Karyan c'est l'heure du wc !");
+            target.send("Sors du coubeh !");
+            return;
           }
         }
       }
     }
   }
-}, 1000 * 60 * 5);
+}, 1000 * 30);
 
 bot.on('messageCreate', async (msg: Message) => {
   const authorId = msg.author.id;
