@@ -34,11 +34,10 @@ bot.commands = getCommands();
 bot.on('ready', async () => {
   try {
     await connectDb();
-    console.log('Connecter à la base de données avant de continuer');
+    console.log('Connecté à la base de données');
 
     for (const guild of bot.guilds.cache.values()) {
       if (!guild) {
-        console.log('Guild not found');
         return;
       }
 

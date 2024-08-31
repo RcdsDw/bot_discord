@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 import path from 'path';
 import moment from 'moment';
 
-import { ChannelType, Guild, Message, userMention } from 'discord.js';
+import { Guild, Message, userMention, Events } from 'discord.js';
 
 import { DiscordUser } from './lib/models/users';
 import { bot } from './lib/bot';
@@ -69,52 +69,6 @@ app.get('/api/users', async (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
-
-// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
-// setInterval(async () => {
-//   const guild = bot.guilds.cache.get('1169725987454464051');
-
-//   if (guild) {
-//     const members = await guild.members.fetch();
-//     const channels = await guild.channels.fetch();
-  
-//     for (const member of members.values()) {
-//       if (member.user.username === "judgeobito") {
-//         const target = members.find(m => m.user.username === "judgeobito");
-//         let isInVoiceChannel = false;
-
-//         for (const channel of channels.values()) {
-//           if (target && channel?.type === ChannelType.GuildVoice && channel.members.has(target.id)) {
-//             isInVoiceChannel = true;
-//             break;
-//           }
-//         }
-
-//         const logChannel = channels.find(c => c && c.id === "1279088769294667816");
-
-//         if (isInVoiceChannel && target) {
-//           try {
-//             await target.send("Sors du coubeh !");
-//             isInVoiceChannel = false;
-//           } catch (error) {
-//             console.error("Impossible d'envoyer un message privé à l'utilisateur:", error);
-//           }
-
-//           if (logChannel && logChannel.isTextBased()) {
-//             logChannel.send('Fait !');
-//           }
-//           return;
-//         } else {
-//           if (logChannel && logChannel.isTextBased()) {
-//             logChannel.send('Aie !');
-//           }
-//           return;
-//         }
-//       }
-//     }
-//   }
-// }, 10);
 
 bot.on('messageCreate', async (msg: Message) => {
   const authorId = msg.author.id;

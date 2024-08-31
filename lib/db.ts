@@ -12,6 +12,7 @@ if (!dbUrl) {
 }
 
 export const sequelize = new Sequelize(dbUrl, {
+  logging: false,
   models: [DiscordGuild, DiscordUser],
 });
 
