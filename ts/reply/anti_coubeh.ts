@@ -1,7 +1,7 @@
 export async function AntiCoubeh(msg: string) {
-  const coubehReg = /\bcoubeh(?=\s|$)/i;
-  const ketteReg = /\b(kette|quette|quete|kete)(?=\s|$)/i;
-  const feurReg = /\bfeur(?=\s|$)/i;
+  const coubehReg = /\b(coubeh)(?=\s?.*[?¿]|$)/i;
+  const ketteReg = /\b(kette|quette|quete|kete)(?=\s?.*[?¿]|$)/i;
+  const feurReg = /\b(feur)(?=\s?.*[?¿]|$)/i;
 
   if (msg.match(coubehReg)) {
     return 'À ton âge tu dis "coubeh" ? Ressaisis toi !';
