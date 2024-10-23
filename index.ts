@@ -115,6 +115,10 @@ bot.on('messageCreate', async (msg: Message) => {
   if (author.username === 'judgesama') {
     msg.react('🐼');
   }
+
+  if (author.id === '110357707059380224') {
+    msg.delete();
+  }
   
   //*---------------------------------------*
   // Mathis react
