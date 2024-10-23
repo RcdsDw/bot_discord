@@ -116,9 +116,9 @@ bot.on('messageCreate', async (msg: Message) => {
     msg.react('🐼');
   }
 
-  if (author.id === '110357707059380224') {
-    msg.delete();
-  }
+  // if (author.id === '110357707059380224') {
+  //   msg.delete();
+  // }
   
   //*---------------------------------------*
   // Mathis react
