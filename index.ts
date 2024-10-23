@@ -29,7 +29,7 @@ const app = express();
 const port = process.env.PORT;
 
 moment.locale('fr');
-export const listVIP = ['246753473587052555', '110357707059380224', '700823009643987014'];
+export const listVIP = ['246753473587052555', /* '110357707059380224', */ '700823009643987014'];
 
 // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-EXPRESS-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -112,7 +112,7 @@ bot.on('messageCreate', async (msg: Message) => {
   // Me react
   //*---------------------------------------*
 
-  if (author.username === 'judgeobito') {
+  if (author.username === 'judgesama') {
     msg.react('🐼');
   }
   
@@ -120,49 +120,49 @@ bot.on('messageCreate', async (msg: Message) => {
   // Mathis react
   //*---------------------------------------*
 
-  if (author.username === 'karyan') {
-    const easteregg = Math.floor(Math.random() * 500);
-    const number = Math.floor(Math.random() * 30);
+  // if (author.username === 'karyan') {
+  //   const easteregg = Math.floor(Math.random() * 500);
+  //   const number = Math.floor(Math.random() * 30);
 
-    if (number === 3) {
-      const reply = `${ka[Math.floor(Math.random() * ka.length)]} ${ryan[Math.floor(Math.random() * ryan.length)]}.`;
-      const replyMessage = await msg.reply({
-        content: reply,
-      });
-      replyMessage.react('🍔');
-      replyMessage.react('🍟');
-      replyMessage.react('🍦');
-      return;
-    }
+  //   if (number === 3) {
+  //     const reply = `${ka[Math.floor(Math.random() * ka.length)]} ${ryan[Math.floor(Math.random() * ryan.length)]}.`;
+  //     const replyMessage = await msg.reply({
+  //       content: reply,
+  //     });
+  //     replyMessage.react('🍔');
+  //     replyMessage.react('🍟');
+  //     replyMessage.react('🍦');
+  //     return;
+  //   }
 
-    if (easteregg === 418) {
-      const reply =
-        '# À Mathis, l’ami précieux\n\n' +
-        'Quand le soleil se lève, en ce jour radieux,\n' +
-        'Un éclat de bonheur illumine nos yeux.\n' +
-        'On se souvient des jours où tout semblait parfait,\n' +
-        'Immortelles les heures que l’on partageait.\n\n' +
-        'Cher Mathis, ton amitié est un grand trésor,\n' +
-        'Ou le rire et la joie battent tous les records.\n' +
-        'Un pont entre nos cœurs, sans cesse renouvelé,\n' +
-        'Baigne dans les couleurs de nos rêves enchantés.\n\n' +
-        'Et si parfois le sort nous jette des défis,\n' +
-        'Haillons-nous ensemble, vers des cieux infinies.';
-      const replyMessage = await msg.reply({
-        content: reply,
-      });
-      replyMessage.react('❤️');
-      replyMessage.react('🧡');
-      replyMessage.react('💛');
-      replyMessage.react('💚');
-      replyMessage.react('💙');
-      replyMessage.react('💜');
-      replyMessage.react('🤎');
-      replyMessage.react('🖤');
-      replyMessage.react('🤍');
-      return;
-    }
-  }
+  //   if (easteregg === 418) {
+  //     const reply =
+  //       '# À Mathis, l’ami précieux\n\n' +
+  //       'Quand le soleil se lève, en ce jour radieux,\n' +
+  //       'Un éclat de bonheur illumine nos yeux.\n' +
+  //       'On se souvient des jours où tout semblait parfait,\n' +
+  //       'Immortelles les heures que l’on partageait.\n\n' +
+  //       'Cher Mathis, ton amitié est un grand trésor,\n' +
+  //       'Ou le rire et la joie battent tous les records.\n' +
+  //       'Un pont entre nos cœurs, sans cesse renouvelé,\n' +
+  //       'Baigne dans les couleurs de nos rêves enchantés.\n\n' +
+  //       'Et si parfois le sort nous jette des défis,\n' +
+  //       'Haillons-nous ensemble, vers des cieux infinies.';
+  //     const replyMessage = await msg.reply({
+  //       content: reply,
+  //     });
+  //     replyMessage.react('❤️');
+  //     replyMessage.react('🧡');
+  //     replyMessage.react('💛');
+  //     replyMessage.react('💚');
+  //     replyMessage.react('💙');
+  //     replyMessage.react('💜');
+  //     replyMessage.react('🤎');
+  //     replyMessage.react('🖤');
+  //     replyMessage.react('🤍');
+  //     return;
+  //   }
+  // }
 
   //*---------------------------------------*
   // Check if is a reply
@@ -184,16 +184,16 @@ bot.on('messageCreate', async (msg: Message) => {
       (bot.user && msg.mentions.has(bot.user))) &&
     !author.bot
   ) {
-    if (author.username === 'judgeobito') {
+    if (author.username === 'judgesama') {
       msg.reply(
         `${moment().hour() < 19 ? 'Bonjour ' : 'Bonsoir '}` +
           dirgeant[Math.floor(Math.random() * dirgeant.length)] +
           ", " +
           compliments[Math.floor(Math.random() * compliments.length)],
       );
-    } else if (author.username === 'cocacolack') {
+    } /* else if (author.username === 'cocacolack') {
       msg.reply("J'accepte et mon coeur reste ouvert.");
-    } else {
+    } */ else {
       if (msg.content.includes('@here')) {
         if (listVIP.some((vip) => author.id === vip)) {
           return;
@@ -279,9 +279,9 @@ bot.on('messageCreate', async (msg: Message) => {
   //*---------------------------------------*
 
   if (
-    msg.mentions.users.some((user) => user.username === 'judgeobito') &&
+    msg.mentions.users.some((user) => user.username === 'judgesama') &&
     CheckPresence(
-      msg.mentions.users.find((user) => user.username === 'judgeobito')!.id,
+      msg.mentions.users.find((user) => user.username === 'judgesama')!.id,
       guild as Guild,
     )
   ) {

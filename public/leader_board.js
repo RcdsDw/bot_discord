@@ -11,7 +11,7 @@ fetch('/api/users')
       console.log(user);
       if (
         user.user_id === '246753473587052555' ||
-        user.user_id === '110357707059380224' ||
+        // user.user_id === '110357707059380224' ||
         user.user_id === '700823009643987014'
       ) {
         incoubables.innerHTML += `<div id="incoubable">
